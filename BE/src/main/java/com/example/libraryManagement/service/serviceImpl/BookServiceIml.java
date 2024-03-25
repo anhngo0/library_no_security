@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BookService implements IBookService {
+public class BookServiceIml implements IBookService {
     private final BookRepository bookRepository;
     public List<Book> getAllBooks(){
         return bookRepository.findAll();

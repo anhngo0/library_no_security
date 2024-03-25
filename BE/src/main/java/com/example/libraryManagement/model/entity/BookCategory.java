@@ -17,4 +17,10 @@ public class BookCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String note;
+
+    public BookCategory(String name, String note) {
+        this.name = name;
+        this.note = note;
+    }
 }
