@@ -6,8 +6,8 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class UpsertBookCategoryForm implements Serializable {
+public class UpsertBookCategoryForm {
     @NotBlank(message = "{bookCategoryNameMustNotBeBlank}")
-    String name;
-    String note;
+    private String name;
+    private String note;
 }

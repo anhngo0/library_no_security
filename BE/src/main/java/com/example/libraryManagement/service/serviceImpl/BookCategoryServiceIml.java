@@ -41,10 +41,20 @@ public class BookCategoryServiceIml implements IBookCategoryService {
         return bookCategoryMapper.toDto(bookCategory);
     }
 
-//    @Override
-//    public BookCategoryDto updateBookCategory(String name) {
-//        BookCategory bookCategory = bookCategoryRepository.findById(id)
-//                .orElseThrow(() -> new ResourceNotFoundException("Can not found book category which id is "+ id));
-//        return null;
-//    }
+    @Override
+    public BookCategoryDto updateBookCategory(Long id,UpsertBookCategoryForm upsertBookCategoryForm) {
+        BookCategory bookCategory = bookCategoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Can not found book category which id is "+ id));
+        BookCategory updatedCategory = bookCategoryMapper.toEntityUpdate(upsertBookCategoryForm,bookCategory);
+        updatedCategory = bookCategoryRepository.save(updatedCategory);
+        return bookCategoryMapper.toDto(updatedCategory);
+    }
+
+    @Override
+    public Object deleteBookCategory(Long id) {
+        BookCategory bookCategory = bookCategoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Can not found book category which id is "+ id));
+        bookCategoryRepository.delete(bookCategory);
+        return "delete successful";
+    }
 }

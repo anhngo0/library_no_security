@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-25T23:35:56+0700",
+    date = "2024-03-26T00:51:03+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
-public class BookCategoryMapperImpl implements BookCategoryMapper {
+public class BookCategoryMapperImpl extends BookCategoryMapper {
 
     @Override
     public BookCategoryDto toDto(BookCategory bookCategory) {
@@ -51,6 +51,18 @@ public class BookCategoryMapperImpl implements BookCategoryMapper {
         }
 
         BookCategory bookCategory = new BookCategory();
+
+        bookCategory.setName( upsertBookCategoryForm.getName() );
+        bookCategory.setNote( upsertBookCategoryForm.getNote() );
+
+        return bookCategory;
+    }
+
+    @Override
+    public BookCategory toEntityUpdate(UpsertBookCategoryForm upsertBookCategoryForm, BookCategory bookCategory) {
+        if ( upsertBookCategoryForm == null ) {
+            return bookCategory;
+        }
 
         bookCategory.setName( upsertBookCategoryForm.getName() );
         bookCategory.setNote( upsertBookCategoryForm.getNote() );

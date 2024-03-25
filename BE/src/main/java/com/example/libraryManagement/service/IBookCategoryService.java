@@ -12,5 +12,7 @@ public interface IBookCategoryService {
     BookCategoryDto getBookCategoryById(Long id);
     BookCategoryDto createBookCategory(UpsertBookCategoryForm upsertBookCategoryForm);
 
-//    BookCategoryDto updateBookCategory(String name);
+    BookCategoryDto updateBookCategory(Long id,UpsertBookCategoryForm upsertBookCategoryForm);
+
+    Object deleteBookCategory(Long id);
 }
