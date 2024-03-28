@@ -1,37 +1,29 @@
 package com.example.libraryManagement.model.dto;
 
-import com.example.libraryManagement.model.entity.BookCategory;
-import com.example.libraryManagement.model.entity.BookClassNumber;
-import com.example.libraryManagement.model.entity.BorrowedTicket;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class BookDto {
+public class BookDto implements Serializable {
     private Long bookId;
     private String vietnameseName;
-    private String foreignName;
+    private String alterName;
     private String author;
     private BigInteger ISBNNumber;
-    private Date publishDate;
+    private Double import_price;
+    private Date year_of_publication;
     private String publisher;
     private String language;
     private String description;
-    private String callNumber;
-    private boolean isBorrowed = false;
-
     private BookCategoryDto categoryDto;
 
-    private BookCategory classNumber;
+    private BookClassNumberDto classNumber;
 
-    List<BorrowedTicket> borrowedTickets;
+    List<BorrowedTicketDto> borrowedTickets;
 }

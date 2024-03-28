@@ -9,8 +9,13 @@ import com.example.libraryManagement.model.dto.form.UpsertBookClassNumberForm;
 import com.example.libraryManagement.model.entity.BookClassNumber;
 import com.example.libraryManagement.model.entity.BookClassNumber;
 import com.example.libraryManagement.model.repository.BookClassNumberRepository;
+import com.example.libraryManagement.query.params.GetBookClassNumberQueryParams;
+import com.example.libraryManagement.query.predicate.BookCategoryPredicate;
+import com.example.libraryManagement.query.predicate.BookClassNumberPredicate;
 import com.example.libraryManagement.service.IBookClassNumberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,13 +27,16 @@ public class BookClassNumberImpl implements IBookClassNumberService {
     private final BookClassNumberRepository bookClassNumberRepository;
     private final BookClassNumberMapper bookClassNumberMapper;
     @Override
-    public List<BookClassNumberDto> getAllBookClassNumbers() {
-        List<BookClassNumber> bookClassNumberList = bookClassNumberRepository.findAll();
-        List<BookClassNumberDto> bookClassNumberDtoList = new ArrayList<BookClassNumberDto>();
-        for(BookClassNumber bookClassNumber : bookClassNumberList){
-            bookClassNumberDtoList.add(bookClassNumberMapper.toDto(bookClassNumber));
-        }
-        return bookClassNumberDtoList;
+    public Page<BookClassNumberDto> getBookClassNumbers(
+            GetBookClassNumberQueryParams getBookClassNumberQueryParams, Pageable pageable
+    ) {
+        Page<BookClassNumberDto> pagedBookClassNumberDto = bookClassNumberRepository
+                .findAll(
+                BookClassNumberPredicate.getBookClassNumberPredicate(getBookClassNumberQueryParams),
+                pageable
+        )
+                .map((bookClassNumberMapper::toDto));
+        return pagedBookClassNumberDto;
     }
 
     @Override

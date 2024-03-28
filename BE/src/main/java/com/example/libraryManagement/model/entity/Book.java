@@ -18,17 +18,21 @@ import java.util.List;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long bookId;
+    @Column(nullable = false, name = "id")
+    private Long id;
     private String vietnameseName;
-    private String foreignName;
+    private String alterName;
     private String author;
     private BigInteger ISBNNumber;
-    private Date publishDate;
+    private Double import_price;
+    private Date year_of_publication;
     private String publisher;
     private String language;
     private String description;
-    private String callNumber;
-    private boolean isBorrowed = false;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private BookStatus status;
 
     @ManyToOne(targetEntity = BookCategory.class)
     @JoinColumn(name = "category_id")
@@ -41,27 +45,19 @@ public class Book {
     @ManyToMany
     @JoinTable(
             name = "borrow_book",
-            joinColumns = @JoinColumn(name = "bookId"),
-            inverseJoinColumns = @JoinColumn(name = "borrowedTicketId")
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "borrowedTicket_id")
     )
     List<BorrowedTicket> borrowedTickets;
 
-    public Book() {
-        this.borrowedTickets = new ArrayList<BorrowedTicket>();
-    }
+//    public Book() {
+//        this.borrowedTickets = new ArrayList<BorrowedTicket>();
+//    }
 
-    //set book's state to true when someone borrow it & false when they don't
-    public void setIsBorrowedToTrue(){
-        this.isBorrowed = true;
-    }
-    public void setIsBorrowedToFalse(){
-        this.isBorrowed = false;
-    }
-
-    public void addBorrowedTicket(BorrowedTicket newBorrowedTicket){
-        if(borrowedTickets == null){
-            this.borrowedTickets = new ArrayList<BorrowedTicket>();
-        }
-        borrowedTickets.add(newBorrowedTicket);
-    }
+//    public void addBorrowedTicket(BorrowedTicket newBorrowedTicket){
+//        if(borrowedTickets == null){
+//            this.borrowedTickets = new ArrayList<BorrowedTicket>();
+//        }
+//        borrowedTickets.add(newBorrowedTicket);
+//    }
 }

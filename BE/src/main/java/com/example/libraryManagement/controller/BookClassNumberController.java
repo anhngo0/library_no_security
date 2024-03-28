@@ -4,11 +4,17 @@ import com.example.libraryManagement.model.dto.BookCategoryDto;
 import com.example.libraryManagement.model.dto.BookClassNumberDto;
 import com.example.libraryManagement.model.dto.form.UpsertBookCategoryForm;
 import com.example.libraryManagement.model.dto.form.UpsertBookClassNumberForm;
+import com.example.libraryManagement.model.entity.BookClassNumber;
+import com.example.libraryManagement.query.params.GetBookClassNumberQueryParams;
 import com.example.libraryManagement.service.IBookCategoryService;
 import com.example.libraryManagement.service.IBookClassNumberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +27,15 @@ import java.util.List;
 public class BookClassNumberController {
     @Autowired
     private final IBookClassNumberService bookClassNumberService;
+    private final PagedResourcesAssembler<BookClassNumberDto> pagedResourcesAssembler ;
     @GetMapping
-    public ResponseEntity<List<BookClassNumberDto>> getAllBookCategories(){
-        return ResponseEntity.ok(bookClassNumberService.getAllBookClassNumbers());
+    public ResponseEntity<PagedModel<EntityModel<BookClassNumberDto>>> getBookClassNumbers(
+            GetBookClassNumberQueryParams getBookClassNumberQueryParams, Pageable pageable
+    ){
+        PagedModel<EntityModel<BookClassNumberDto>> pagedModel = pagedResourcesAssembler.toModel(
+                bookClassNumberService.getBookClassNumbers(getBookClassNumberQueryParams, pageable)
+        );
+        return ResponseEntity.ok(pagedModel);
     }
     @GetMapping("/{id}")
     public ResponseEntity<BookClassNumberDto> getBookClassNumberById(@PathVariable Long id){

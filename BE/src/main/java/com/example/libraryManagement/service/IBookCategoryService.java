@@ -3,11 +3,14 @@ package com.example.libraryManagement.service;
 import com.example.libraryManagement.model.dto.BookCategoryDto;
 import com.example.libraryManagement.model.dto.form.UpsertBookCategoryForm;
 import com.example.libraryManagement.model.entity.BookCategory;
+import com.example.libraryManagement.query.params.GetBookCategoriesQueryParams;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface IBookCategoryService {
-    public List<BookCategoryDto> getAllBookCategories();
+    public Page<BookCategoryDto> getBookCategories(GetBookCategoriesQueryParams getBookCategoriesQueryParams, Pageable pageable);
 
     BookCategoryDto getBookCategoryById(Long id);
     BookCategoryDto createBookCategory(UpsertBookCategoryForm upsertBookCategoryForm);

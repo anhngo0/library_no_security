@@ -6,8 +6,13 @@ import com.example.libraryManagement.model.dto.BookCategoryDto;
 import com.example.libraryManagement.model.dto.form.UpsertBookCategoryForm;
 import com.example.libraryManagement.model.entity.BookCategory;
 import com.example.libraryManagement.model.repository.BookCategoryRepository;
+import com.example.libraryManagement.query.params.GetBookCategoriesQueryParams;
+import com.example.libraryManagement.query.predicate.BookCategoryPredicate;
 import com.example.libraryManagement.service.IBookCategoryService;
+import com.querydsl.core.types.Predicate;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,13 +23,15 @@ import java.util.List;
 public class BookCategoryServiceIml implements IBookCategoryService {
     private final BookCategoryRepository bookCategoryRepository;
     private final BookCategoryMapper bookCategoryMapper;
-    public List<BookCategoryDto> getAllBookCategories(){
-        List<BookCategory> bookCategoryList = bookCategoryRepository.findAll();
-        List<BookCategoryDto> bookCategoryDtoList = new ArrayList<BookCategoryDto>();
-        for(BookCategory bookCategory : bookCategoryList){
-            bookCategoryDtoList.add(bookCategoryMapper.toDto(bookCategory));
-        }
-        return bookCategoryDtoList;
+    public Page<BookCategoryDto> getBookCategories(
+            GetBookCategoriesQueryParams getBookCategoriesQueryParams, Pageable pageable
+    ){
+        Predicate bookCategoryPredicate = BookCategoryPredicate.getBookCategoryPredicate(getBookCategoriesQueryParams);
+
+        return bookCategoryRepository.findAll(
+                bookCategoryPredicate,
+                pageable
+        ).map(bookCategoryMapper::toDto);
     }
 
     @Override
