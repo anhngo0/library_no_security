@@ -16,6 +16,6 @@ public class BookClassNumberPredicate {
         return where.and(commonAttributesContainKeyword(getBookClassNumberQueryParams.getKeyword()));
     }
     private static Predicate commonAttributesContainKeyword(String keyword){
-        return StringUtils.isNotBlank(keyword) ? bookClassNumber.classNumber.containsIgnoreCase(keyword):null;
+        return StringUtils.isNotBlank(keyword) ? bookClassNumber.name.containsIgnoreCase(keyword):null;
     }
 }

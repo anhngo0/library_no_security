@@ -7,5 +7,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BookClassNumberDto {
     private Long id;
-    private String classNumber;
+    private String name;
 }

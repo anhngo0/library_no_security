@@ -4,6 +4,7 @@ import com.example.libraryManagement.model.dto.BookCategoryDto;
 import com.example.libraryManagement.model.dto.BookClassNumberDto;
 import com.example.libraryManagement.model.dto.form.UpsertBookCategoryForm;
 import com.example.libraryManagement.model.dto.form.UpsertBookClassNumberForm;
+import com.example.libraryManagement.model.dto.form.UpsertBookForm;
 import com.example.libraryManagement.model.entity.BookClassNumber;
 import com.example.libraryManagement.query.params.GetBookClassNumberQueryParams;
 import com.example.libraryManagement.service.IBookCategoryService;
@@ -41,7 +42,12 @@ public class BookClassNumberController {
     public ResponseEntity<BookClassNumberDto> getBookClassNumberById(@PathVariable Long id){
         return ResponseEntity.ok(bookClassNumberService.getBookClassNumberById(id));
     }
-
+    @PostMapping("/many")
+    public ResponseEntity<List<BookClassNumberDto>> createManyBookClassNumbers(
+            @RequestBody List<UpsertBookClassNumberForm> upsertBookClassNumberFormList
+    ){
+        return ResponseEntity.ok(bookClassNumberService.createManyBookClassNumbers(upsertBookClassNumberFormList));
+    }
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BookClassNumberDto> createBookClassNumber(
             @RequestBody @Valid UpsertBookClassNumberForm upsertBookClassNumberForm

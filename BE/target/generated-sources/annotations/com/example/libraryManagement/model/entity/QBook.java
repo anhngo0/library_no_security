@@ -26,7 +26,7 @@ public class QBook extends EntityPathBase<Book> {
 
     public final StringPath author = createString("author");
 
-    public final ListPath<BorrowedTicket, QBorrowedTicket> borrowedTickets = this.<BorrowedTicket, QBorrowedTicket>createList("borrowedTickets", BorrowedTicket.class, QBorrowedTicket.class, PathInits.DIRECT2);
+    public final StringPath bookPosition = createString("bookPosition");
 
     public final QBookCategory category;
 
@@ -36,19 +36,21 @@ public class QBook extends EntityPathBase<Book> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final NumberPath<Double> import_price = createNumber("import_price", Double.class);
-
     public final NumberPath<java.math.BigInteger> ISBNNumber = createNumber("ISBNNumber", java.math.BigInteger.class);
 
     public final StringPath language = createString("language");
 
+    public final NumberPath<Double> price = createNumber("price", Double.class);
+
     public final StringPath publisher = createString("publisher");
+
+    public final NumberPath<Integer> quantity = createNumber("quantity", Integer.class);
 
     public final EnumPath<BookStatus> status = createEnum("status", BookStatus.class);
 
     public final StringPath vietnameseName = createString("vietnameseName");
 
-    public final DateTimePath<java.util.Date> year_of_publication = createDateTime("year_of_publication", java.util.Date.class);
+    public final ComparablePath<java.time.Year> year_of_publication = createComparable("year_of_publication", java.time.Year.class);
 
     public QBook(String variable) {
         this(Book.class, forVariable(variable), INITS);

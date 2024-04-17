@@ -29,13 +29,7 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 			<version>3.2.4</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.querydsl/querydsl-apt -->
-		<dependency>
-			<groupId>com.querydsl</groupId>
-			<artifactId>querydsl-apt</artifactId>
-			<version>5.1.0</version>
-			<classifier>jakarta</classifier>
-		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.springframework.hateoas/spring-hateoas -->
 		<dependency>
 			<groupId>org.springframework.hateoas</groupId>
@@ -51,7 +45,13 @@
 			<classifier>jakarta</classifier>
 		</dependency>
 
-
+		<!-- https://mvnrepository.com/artifact/com.querydsl/querydsl-apt -->
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>5.1.0</version>
+			<classifier>jakarta</classifier>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>

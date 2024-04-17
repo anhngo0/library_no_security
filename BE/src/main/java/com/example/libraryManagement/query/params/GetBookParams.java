@@ -1,21 +1,20 @@
-package com.example.libraryManagement.model.dto.form;
+package com.example.libraryManagement.query.params;
 
 import com.example.libraryManagement.model.entity.BookStatus;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.Year;
 
 @Data
-public class UpsertBookForm implements Serializable {
+public class GetBookParams {
+    private String keyword;
     private String vietnameseName;
     private String alterName;
     private String author;
     private BigInteger ISBNNumber;
     private String bookPosition;
-    private Double price;
-    private int quantity;
+    private Double import_price;
     private Year year_of_publication;
     private String publisher;
     private String language;

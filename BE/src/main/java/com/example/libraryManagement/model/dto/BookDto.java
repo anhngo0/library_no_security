@@ -1,29 +1,34 @@
 package com.example.libraryManagement.model.dto;
 
+import com.example.libraryManagement.model.entity.BookStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.time.Year;
 import java.util.Date;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 public class BookDto implements Serializable {
-    private Long bookId;
+    private Long id;
     private String vietnameseName;
     private String alterName;
     private String author;
     private BigInteger ISBNNumber;
-    private Double import_price;
-    private Date year_of_publication;
+    private String bookPosition;
+    private Double price;
+    private int quantity;
+    private Year year_of_publication;
     private String publisher;
     private String language;
     private String description;
-    private BookCategoryDto categoryDto;
+    private BookStatus status;
+    private Long categoryId;
 
-    private BookClassNumberDto classNumber;
+    private Long classNumberId;
 
-    List<BorrowedTicketDto> borrowedTickets;
+//    List<BorrowedTicketDto> borrowedTickets;
 }

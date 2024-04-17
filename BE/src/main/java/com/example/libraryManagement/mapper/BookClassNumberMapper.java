@@ -4,10 +4,7 @@ import com.example.libraryManagement.model.dto.BookClassNumberDto;
 import com.example.libraryManagement.model.dto.form.UpsertBookClassNumberForm;
 import com.example.libraryManagement.model.entity.BookClassNumber;
 import com.example.libraryManagement.model.entity.BookClassNumber;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public abstract class BookClassNumberMapper {

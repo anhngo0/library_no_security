@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-03-29T00:47:07+0700",
+    date = "2024-04-16T23:29:45+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -23,7 +23,7 @@ public class BookClassNumberMapperImpl extends BookClassNumberMapper {
         BookClassNumberDto bookClassNumberDto = new BookClassNumberDto();
 
         bookClassNumberDto.setId( bookClassNumber.getId() );
-        bookClassNumberDto.setClassNumber( bookClassNumber.getClassNumber() );
+        bookClassNumberDto.setName( bookClassNumber.getName() );
 
         return bookClassNumberDto;
     }
@@ -37,7 +37,7 @@ public class BookClassNumberMapperImpl extends BookClassNumberMapper {
         BookClassNumber bookClassNumber = new BookClassNumber();
 
         bookClassNumber.setId( bookClassNumberDto.getId() );
-        bookClassNumber.setClassNumber( bookClassNumberDto.getClassNumber() );
+        bookClassNumber.setName( bookClassNumberDto.getName() );
 
         return bookClassNumber;
     }
@@ -50,7 +50,7 @@ public class BookClassNumberMapperImpl extends BookClassNumberMapper {
 
         BookClassNumber bookClassNumber = new BookClassNumber();
 
-        bookClassNumber.setClassNumber( upsertBookClassNumberForm.getClassNumber() );
+        bookClassNumber.setName( upsertBookClassNumberForm.getName() );
 
         return bookClassNumber;
     }
@@ -61,7 +61,7 @@ public class BookClassNumberMapperImpl extends BookClassNumberMapper {
             return bookClassNumber;
         }
 
-        bookClassNumber.setClassNumber( upsertBookClassNumberForm.getClassNumber() );
+        bookClassNumber.setName( upsertBookClassNumberForm.getName() );
 
         return bookClassNumber;
     }

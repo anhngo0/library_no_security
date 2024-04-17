@@ -19,9 +19,9 @@ public class QBookClassNumber extends EntityPathBase<BookClassNumber> {
 
     public static final QBookClassNumber bookClassNumber = new QBookClassNumber("bookClassNumber");
 
-    public final StringPath classNumber = createString("classNumber");
-
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    public final StringPath name = createString("name");
 
     public QBookClassNumber(String variable) {
         super(BookClassNumber.class, forVariable(variable));

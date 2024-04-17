@@ -1,4 +1,4 @@
-package com.example.libraryManagement.model.repository;
-
-public interface BorrowedTicketRepository {
-}
+//package com.example.libraryManagement.model.repository;
+//
+//public interface BorrowedTicketRepository {
+//}

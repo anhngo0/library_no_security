@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigInteger;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,13 @@ import java.util.List;
 @Setter
 @Getter
 @AllArgsConstructor
+@NamedEntityGraph(
+        name = "BookFullInfo" , attributeNodes =
+        {
+                @NamedAttributeNode("category"),
+                @NamedAttributeNode("classNumber")
+      }
+)
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +32,10 @@ public class Book {
     private String alterName;
     private String author;
     private BigInteger ISBNNumber;
-    private Double import_price;
-    private Date year_of_publication;
+    private String bookPosition;
+    private Double price;
+    private int quantity;
+    private Year year_of_publication;
     private String publisher;
     private String language;
     private String description;
@@ -39,16 +49,20 @@ public class Book {
     private BookCategory category;
 
     @ManyToOne(targetEntity = BookClassNumber.class)
-    @JoinColumn(name = "classNumber_id")
-    private BookCategory classNumber;
+    @JoinColumn(name = "number_id")
+    private BookClassNumber classNumber;
 
-    @ManyToMany
-    @JoinTable(
-            name = "borrow_book",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "borrowedTicket_id")
-    )
-    List<BorrowedTicket> borrowedTickets;
+    public void addClassNumberToBookPosition(){
+        bookPosition = classNumber.getName() + "-" + bookPosition;
+    }
+
+//    @ManyToMany
+//    @JoinTable(
+//            name = "borrow_book",
+//            joinColumns = @JoinColumn(name = "book_id"),
+//            inverseJoinColumns = @JoinColumn(name = "borrowedTicket_id")
+//    )
+//    List<BorrowedTicket> borrowedTickets;
 
 //    public Book() {
 //        this.borrowedTickets = new ArrayList<BorrowedTicket>();

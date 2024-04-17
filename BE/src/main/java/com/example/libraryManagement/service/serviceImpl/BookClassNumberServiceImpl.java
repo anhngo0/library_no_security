@@ -1,16 +1,14 @@
 package com.example.libraryManagement.service.serviceImpl;
 
+import com.example.libraryManagement.exeption.ResourceHasExistedExeption;
 import com.example.libraryManagement.exeption.ResourceNotFoundException;
 import com.example.libraryManagement.mapper.BookClassNumberMapper;
 import com.example.libraryManagement.model.dto.BookClassNumberDto;
-import com.example.libraryManagement.model.dto.BookClassNumberDto;
 import com.example.libraryManagement.model.dto.form.UpsertBookClassNumberForm;
-import com.example.libraryManagement.model.dto.form.UpsertBookClassNumberForm;
-import com.example.libraryManagement.model.entity.BookClassNumber;
+import com.example.libraryManagement.model.dto.form.UpsertBookForm;
 import com.example.libraryManagement.model.entity.BookClassNumber;
 import com.example.libraryManagement.model.repository.BookClassNumberRepository;
 import com.example.libraryManagement.query.params.GetBookClassNumberQueryParams;
-import com.example.libraryManagement.query.predicate.BookCategoryPredicate;
 import com.example.libraryManagement.query.predicate.BookClassNumberPredicate;
 import com.example.libraryManagement.service.IBookClassNumberService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +21,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BookClassNumberImpl implements IBookClassNumberService {
+public class BookClassNumberServiceImpl implements IBookClassNumberService {
     private final BookClassNumberRepository bookClassNumberRepository;
     private final BookClassNumberMapper bookClassNumberMapper;
     @Override
@@ -68,5 +66,20 @@ public class BookClassNumberImpl implements IBookClassNumberService {
                 .orElseThrow(() -> new ResourceNotFoundException("Can not found book class number which id is "+ id));
         bookClassNumberRepository.delete(bookClassNumber);
         return "delete successful";
+    }
+
+    @Override
+    public List<BookClassNumberDto> createManyBookClassNumbers(List<UpsertBookClassNumberForm> upsertBookClassNumberFormList) {
+        List<BookClassNumberDto> bookClassNumberDtos = new ArrayList<>();
+        for (UpsertBookClassNumberForm form: upsertBookClassNumberFormList) {
+            BookClassNumber bookClassNumber = bookClassNumberMapper.toEntity(form);
+            //validated existed classNumber
+            if(bookClassNumberRepository.findById(bookClassNumber.getId()).isPresent()){
+                throw new ResourceHasExistedExeption("Class number " + bookClassNumber.getName() + " has existed");
+            }
+            bookClassNumber = bookClassNumberRepository.save(bookClassNumber);
+            bookClassNumberDtos.add(bookClassNumberMapper.toDto(bookClassNumber));
+        }
+        return bookClassNumberDtos;
     }
 }

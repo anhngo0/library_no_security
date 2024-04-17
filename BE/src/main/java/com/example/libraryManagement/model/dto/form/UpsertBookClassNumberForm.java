@@ -6,5 +6,5 @@ import java.io.Serializable;
 
 @Data
 public class UpsertBookClassNumberForm implements Serializable {
-    String classNumber;
+   private String name;
 }
