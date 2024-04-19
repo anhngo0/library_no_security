@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-16T22:38:03+0700",
+    date = "2024-04-19T11:52:29+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -39,7 +39,8 @@ public class BookMapperImpl extends BookMapper {
         bookDto.setAuthor( book.getAuthor() );
         bookDto.setISBNNumber( book.getISBNNumber() );
         bookDto.setBookPosition( book.getBookPosition() );
-        bookDto.setImport_price( book.getImport_price() );
+        bookDto.setPrice( book.getPrice() );
+        bookDto.setQuantity( book.getQuantity() );
         bookDto.setYear_of_publication( book.getYear_of_publication() );
         bookDto.setPublisher( book.getPublisher() );
         bookDto.setLanguage( book.getLanguage() );
@@ -62,7 +63,8 @@ public class BookMapperImpl extends BookMapper {
         String author = null;
         BigInteger iSBNNumber = null;
         String bookPosition = null;
-        Double import_price = null;
+        Double price = null;
+        int quantity = 0;
         Year year_of_publication = null;
         String publisher = null;
         String language = null;
@@ -76,7 +78,8 @@ public class BookMapperImpl extends BookMapper {
         author = upsertBookForm.getAuthor();
         iSBNNumber = upsertBookForm.getISBNNumber();
         bookPosition = upsertBookForm.getBookPosition();
-        import_price = upsertBookForm.getImport_price();
+        price = upsertBookForm.getPrice();
+        quantity = upsertBookForm.getQuantity();
         year_of_publication = upsertBookForm.getYear_of_publication();
         publisher = upsertBookForm.getPublisher();
         language = upsertBookForm.getLanguage();
@@ -85,7 +88,7 @@ public class BookMapperImpl extends BookMapper {
 
         Long id = null;
 
-        Book book = new Book( id, vietnameseName, alterName, author, iSBNNumber, bookPosition, import_price, year_of_publication, publisher, language, description, status, category, classNumber );
+        Book book = new Book( id, vietnameseName, alterName, author, iSBNNumber, bookPosition, price, quantity, year_of_publication, publisher, language, description, status, category, classNumber );
 
         return book;
     }
@@ -117,9 +120,10 @@ public class BookMapperImpl extends BookMapper {
         if ( upsertBookForm.getBookPosition() != null ) {
             book.setBookPosition( upsertBookForm.getBookPosition() );
         }
-        if ( upsertBookForm.getImport_price() != null ) {
-            book.setImport_price( upsertBookForm.getImport_price() );
+        if ( upsertBookForm.getPrice() != null ) {
+            book.setPrice( upsertBookForm.getPrice() );
         }
+        book.setQuantity( upsertBookForm.getQuantity() );
         if ( upsertBookForm.getYear_of_publication() != null ) {
             book.setYear_of_publication( upsertBookForm.getYear_of_publication() );
         }
