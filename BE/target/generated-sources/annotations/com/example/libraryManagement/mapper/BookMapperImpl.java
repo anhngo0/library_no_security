@@ -1,20 +1,21 @@
 package com.example.libraryManagement.mapper;
 
+import com.example.libraryManagement.model.dto.BookCategoryDto;
+import com.example.libraryManagement.model.dto.BookClassNumberDto;
 import com.example.libraryManagement.model.dto.BookDto;
 import com.example.libraryManagement.model.dto.form.UpsertBookForm;
+import com.example.libraryManagement.model.dto.fullInfo.BookFullInfoDto;
 import com.example.libraryManagement.model.entity.Book;
 import com.example.libraryManagement.model.entity.BookCategory;
 import com.example.libraryManagement.model.entity.BookClassNumber;
 import com.example.libraryManagement.model.entity.BookStatus;
-import java.math.BigInteger;
-import java.time.Year;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-19T11:52:29+0700",
+    date = "2024-05-08T10:54:05+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -22,6 +23,8 @@ public class BookMapperImpl extends BookMapper {
 
     @Autowired
     private IdToEntityMapper idToEntityMapper;
+    @Autowired
+    private LiquidationMapper liquidationMapper;
 
     @Override
     public BookDto toDto(Book book) {
@@ -31,23 +34,46 @@ public class BookMapperImpl extends BookMapper {
 
         BookDto bookDto = new BookDto();
 
-        bookDto.setCategoryId( bookCategoryId( book ) );
-        bookDto.setClassNumberId( bookClassNumberId( book ) );
         bookDto.setId( book.getId() );
         bookDto.setVietnameseName( book.getVietnameseName() );
         bookDto.setAlterName( book.getAlterName() );
         bookDto.setAuthor( book.getAuthor() );
-        bookDto.setISBNNumber( book.getISBNNumber() );
         bookDto.setBookPosition( book.getBookPosition() );
         bookDto.setPrice( book.getPrice() );
         bookDto.setQuantity( book.getQuantity() );
-        bookDto.setYear_of_publication( book.getYear_of_publication() );
-        bookDto.setPublisher( book.getPublisher() );
-        bookDto.setLanguage( book.getLanguage() );
-        bookDto.setDescription( book.getDescription() );
         bookDto.setStatus( book.getStatus() );
+        bookDto.setCategory( bookCategoryToBookCategoryDto( book.getCategory() ) );
+        bookDto.setClassNumber( bookClassNumberToBookClassNumberDto( book.getClassNumber() ) );
 
         return bookDto;
+    }
+
+    @Override
+    public BookFullInfoDto toFullInfoDto(Book book) {
+        if ( book == null ) {
+            return null;
+        }
+
+        BookFullInfoDto bookFullInfoDto = new BookFullInfoDto();
+
+        bookFullInfoDto.setId( book.getId() );
+        bookFullInfoDto.setVietnameseName( book.getVietnameseName() );
+        bookFullInfoDto.setAlterName( book.getAlterName() );
+        bookFullInfoDto.setAuthor( book.getAuthor() );
+        bookFullInfoDto.setISBNNumber( book.getISBNNumber() );
+        bookFullInfoDto.setBookPosition( book.getBookPosition() );
+        bookFullInfoDto.setPrice( book.getPrice() );
+        bookFullInfoDto.setQuantity( book.getQuantity() );
+        bookFullInfoDto.setYear_of_publication( book.getYear_of_publication() );
+        bookFullInfoDto.setPublisher( book.getPublisher() );
+        bookFullInfoDto.setLanguage( book.getLanguage() );
+        bookFullInfoDto.setDescription( book.getDescription() );
+        bookFullInfoDto.setStatus( book.getStatus() );
+        bookFullInfoDto.setCategory( bookCategoryToBookCategoryDto( book.getCategory() ) );
+        bookFullInfoDto.setClassNumber( bookClassNumberToBookClassNumberDto( book.getClassNumber() ) );
+        bookFullInfoDto.setLiquidationTicket( liquidationMapper.toDto( book.getLiquidationTicket() ) );
+
+        return bookFullInfoDto;
     }
 
     @Override
@@ -56,39 +82,23 @@ public class BookMapperImpl extends BookMapper {
             return null;
         }
 
-        BookCategory category = null;
-        BookClassNumber classNumber = null;
-        String vietnameseName = null;
-        String alterName = null;
-        String author = null;
-        BigInteger iSBNNumber = null;
-        String bookPosition = null;
-        Double price = null;
-        int quantity = 0;
-        Year year_of_publication = null;
-        String publisher = null;
-        String language = null;
-        String description = null;
-        BookStatus status = null;
+        Book book = new Book();
 
-        category = idToEntityMapper.toCategory( upsertBookForm.getCategoryId() );
-        classNumber = idToEntityMapper.toClassNumber( upsertBookForm.getClassNumberId() );
-        vietnameseName = upsertBookForm.getVietnameseName();
-        alterName = upsertBookForm.getAlterName();
-        author = upsertBookForm.getAuthor();
-        iSBNNumber = upsertBookForm.getISBNNumber();
-        bookPosition = upsertBookForm.getBookPosition();
-        price = upsertBookForm.getPrice();
-        quantity = upsertBookForm.getQuantity();
-        year_of_publication = upsertBookForm.getYear_of_publication();
-        publisher = upsertBookForm.getPublisher();
-        language = upsertBookForm.getLanguage();
-        description = upsertBookForm.getDescription();
-        status = upsertBookForm.getStatus();
+        book.setCategory( idToEntityMapper.toCategory( upsertBookForm.getCategoryId() ) );
+        book.setClassNumber( idToEntityMapper.toClassNumber( upsertBookForm.getClassNumberId() ) );
+        book.setVietnameseName( upsertBookForm.getVietnameseName() );
+        book.setAlterName( upsertBookForm.getAlterName() );
+        book.setAuthor( upsertBookForm.getAuthor() );
+        book.setISBNNumber( upsertBookForm.getISBNNumber() );
+        book.setBookPosition( upsertBookForm.getBookPosition() );
+        book.setPrice( upsertBookForm.getPrice() );
+        book.setQuantity( upsertBookForm.getQuantity() );
+        book.setYear_of_publication( upsertBookForm.getYear_of_publication() );
+        book.setPublisher( upsertBookForm.getPublisher() );
+        book.setLanguage( upsertBookForm.getLanguage() );
+        book.setDescription( upsertBookForm.getDescription() );
 
-        Long id = null;
-
-        Book book = new Book( id, vietnameseName, alterName, author, iSBNNumber, bookPosition, price, quantity, year_of_publication, publisher, language, description, status, category, classNumber );
+        book.setStatus( BookStatus.IN_USE_NEW );
 
         return book;
     }
@@ -143,33 +153,30 @@ public class BookMapperImpl extends BookMapper {
         return book;
     }
 
-    private Long bookCategoryId(Book book) {
-        if ( book == null ) {
+    protected BookCategoryDto bookCategoryToBookCategoryDto(BookCategory bookCategory) {
+        if ( bookCategory == null ) {
             return null;
         }
-        BookCategory category = book.getCategory();
-        if ( category == null ) {
-            return null;
-        }
-        Long id = category.getId();
-        if ( id == null ) {
-            return null;
-        }
-        return id;
+
+        BookCategoryDto bookCategoryDto = new BookCategoryDto();
+
+        bookCategoryDto.setId( bookCategory.getId() );
+        bookCategoryDto.setName( bookCategory.getName() );
+        bookCategoryDto.setNote( bookCategory.getNote() );
+
+        return bookCategoryDto;
     }
 
-    private Long bookClassNumberId(Book book) {
-        if ( book == null ) {
+    protected BookClassNumberDto bookClassNumberToBookClassNumberDto(BookClassNumber bookClassNumber) {
+        if ( bookClassNumber == null ) {
             return null;
         }
-        BookClassNumber classNumber = book.getClassNumber();
-        if ( classNumber == null ) {
-            return null;
-        }
-        Long id = classNumber.getId();
-        if ( id == null ) {
-            return null;
-        }
-        return id;
+
+        BookClassNumberDto bookClassNumberDto = new BookClassNumberDto();
+
+        bookClassNumberDto.setId( bookClassNumber.getId() );
+        bookClassNumberDto.setName( bookClassNumber.getName() );
+
+        return bookClassNumberDto;
     }
 }

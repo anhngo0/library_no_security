@@ -1,6 +1,8 @@
 package com.example.libraryManagement.model.dto;
 
+import com.example.libraryManagement.model.entity.BookClassNumber;
 import com.example.libraryManagement.model.entity.BookStatus;
+import jdk.jfr.Category;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +11,7 @@ import java.math.BigInteger;
 import java.time.Year;
 import java.util.Date;
 import java.util.List;
-
+//Need to add a BooKFullInfoDTO CLASS for get detail info when click in each book (2/5)
 @Data
 @NoArgsConstructor
 public class BookDto implements Serializable {
@@ -17,18 +19,11 @@ public class BookDto implements Serializable {
     private String vietnameseName;
     private String alterName;
     private String author;
-    private BigInteger ISBNNumber;
     private String bookPosition;
     private Double price;
     private int quantity;
-    private Year year_of_publication;
-    private String publisher;
-    private String language;
-    private String description;
     private BookStatus status;
-    private Long categoryId;
+    private BookCategoryDto category ;
+    private BookClassNumberDto classNumber;
 
-    private Long classNumberId;
-
-//    List<BorrowedTicketDto> borrowedTickets;
 }

@@ -28,6 +28,8 @@ public class QBook extends EntityPathBase<Book> {
 
     public final StringPath bookPosition = createString("bookPosition");
 
+    public final SetPath<BorrowTicket, QBorrowTicket> borrowTickets = this.<BorrowTicket, QBorrowTicket>createSet("borrowTickets", BorrowTicket.class, QBorrowTicket.class, PathInits.DIRECT2);
+
     public final QBookCategory category;
 
     public final QBookClassNumber classNumber;
@@ -39,6 +41,8 @@ public class QBook extends EntityPathBase<Book> {
     public final NumberPath<java.math.BigInteger> ISBNNumber = createNumber("ISBNNumber", java.math.BigInteger.class);
 
     public final StringPath language = createString("language");
+
+    public final QLiquidationTicket liquidationTicket;
 
     public final NumberPath<Double> price = createNumber("price", Double.class);
 
@@ -72,6 +76,7 @@ public class QBook extends EntityPathBase<Book> {
         super(type, metadata, inits);
         this.category = inits.isInitialized("category") ? new QBookCategory(forProperty("category")) : null;
         this.classNumber = inits.isInitialized("classNumber") ? new QBookClassNumber(forProperty("classNumber")) : null;
+        this.liquidationTicket = inits.isInitialized("liquidationTicket") ? new QLiquidationTicket(forProperty("liquidationTicket"), inits.get("liquidationTicket")) : null;
     }
 
 }

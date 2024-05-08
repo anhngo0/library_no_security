@@ -8,20 +8,25 @@ import lombok.Setter;
 
 import java.math.BigInteger;
 import java.time.Year;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Setter
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @NamedEntityGraph(
         name = "BookFullInfo" , attributeNodes =
         {
                 @NamedAttributeNode("category"),
-                @NamedAttributeNode("classNumber")
-      }
+                @NamedAttributeNode("classNumber"),
+                @NamedAttributeNode(value = "liquidationTicket", subgraph = "ticket_subgraph")
+      }, subgraphs = {
+                @NamedSubgraph(
+                        name="ticket_subgraph",
+                        attributeNodes = {@NamedAttributeNode("creator"), @NamedAttributeNode("approver")}
+                )
+}
 )
 public class Book {
     @Id
@@ -56,22 +61,11 @@ public class Book {
         bookPosition = classNumber.getName() + "-" + bookPosition;
     }
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "borrow_book",
-//            joinColumns = @JoinColumn(name = "book_id"),
-//            inverseJoinColumns = @JoinColumn(name = "borrowedTicket_id")
-//    )
-//    List<BorrowedTicket> borrowedTickets;
+    @ManyToOne(targetEntity = LiquidationTicket.class)
+    @JoinColumn(name = "liquidation_ticket_id", referencedColumnName = "id")
+    private LiquidationTicket liquidationTicket;
 
-//    public Book() {
-//        this.borrowedTickets = new ArrayList<BorrowedTicket>();
-//    }
+    @ManyToMany(mappedBy = "books",fetch = FetchType.LAZY, targetEntity = BorrowTicket.class)
+    Set<BorrowTicket> borrowTickets;
 
-//    public void addBorrowedTicket(BorrowedTicket newBorrowedTicket){
-//        if(borrowedTickets == null){
-//            this.borrowedTickets = new ArrayList<BorrowedTicket>();
-//        }
-//        borrowedTickets.add(newBorrowedTicket);
-//    }
 }
