@@ -18,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/liquidation_ticket")
 @RequiredArgsConstructor
@@ -42,7 +44,7 @@ public class LiquidationController {
         PagedModel<EntityModel<LiquidationTicketDto>> page = pagedResourcesAssembler.toModel(liquidationService.getLiquidationTickets(getLiquidationTicketParams,pageable));
         return ResponseEntity.ok(page);
     }
-    // WHEN CLIENT ENTER LIQUIDATION TICKET DETAIL INFORMATION PAGE, CALL THIS API AND http:8080//localhost/api/v1/book/liquidation-full-info
+
     @GetMapping("/full-info/{id}")
     public ResponseEntity<LiquidationTicketFullInfoDto> getFullInfoById(@PathVariable("id") Long id){
         return ResponseEntity.ok(liquidationService.getFullInfoById(id));
@@ -64,7 +66,13 @@ public class LiquidationController {
         return ResponseEntity.status(HttpStatus.OK).body("delete success");
     }
 
-    @PutMapping("/respond/{id}")
+    @DeleteMapping("/multiple")
+    public ResponseEntity<?> deleteMultiple(@RequestBody List<Long> ids){
+        liquidationService.deleteMultiple(ids);
+        return ResponseEntity.status(HttpStatus.OK).body("delete success");
+    }
+
+    @PutMapping(value = "/respond/{id}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> responseLiquidationTicket(@PathVariable("id") Long id, RespondLiquidationTicketForm respondLiquidationTicketForm){
         liquidationService.respondLiquidationTicketForm(id,respondLiquidationTicketForm);
         return ResponseEntity.status(HttpStatus.OK).body("call success");

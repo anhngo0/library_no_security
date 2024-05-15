@@ -1,7 +1,12 @@
 package com.example.libraryManagement.Utils;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.Date;
 
@@ -17,11 +22,11 @@ public class CommonUtils {
             return false;
         return !from.isAfter(to);
     }
-    public static  boolean validateDateBetween(Date from, Date to){
+    public static  boolean validateDateBetween(LocalDateTime from, LocalDateTime to){
         if(validateBetweenNotAnyNull(from, to)){
             return false;
         }
-        return !from.after(to);
+        return !from.isAfter(to);
     }
     public static boolean validateIntegerBetween(Integer from, Integer to) {
         if (validateBetweenNotAnyNull(from, to)) {
@@ -41,4 +46,16 @@ public class CommonUtils {
         return originalFileName.substring(originalFileName.lastIndexOf('.') + 1);
     }
 
+    public static Workbook getWorkbook(String excelFileExtension) throws IOException {
+        Workbook workbook = null;
+
+        if (excelFileExtension.endsWith("xlsx")) {
+            workbook = new XSSFWorkbook();
+        } else if (excelFileExtension.endsWith("xls")) {
+            workbook = new HSSFWorkbook();
+        } else {
+            throw new IllegalArgumentException("The specified file is not Excel file");
+        }
+        return workbook;
+    }
 }

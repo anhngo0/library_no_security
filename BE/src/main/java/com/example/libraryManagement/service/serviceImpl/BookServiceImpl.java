@@ -3,30 +3,32 @@ package com.example.libraryManagement.service.serviceImpl;
 import com.example.libraryManagement.exeption.ResourceNotFoundException;
 import com.example.libraryManagement.mapper.BookMapper;
 import com.example.libraryManagement.model.dto.BookDto;
+import com.example.libraryManagement.model.dto.BookExcelDto;
 import com.example.libraryManagement.model.dto.form.UpsertBookForm;
+import com.example.libraryManagement.model.dto.form.UpsertExcelBookForm;
 import com.example.libraryManagement.model.dto.fullInfo.BookFullInfoDto;
 import com.example.libraryManagement.model.entity.Book;
 import com.example.libraryManagement.model.entity.BookStatus;
 import com.example.libraryManagement.model.entity.FileDescription;
 import com.example.libraryManagement.model.repository.BookRepository;
 import com.example.libraryManagement.query.params.GetBookParams;
-import com.example.libraryManagement.query.params.GetLiquidationTicketParams;
 import com.example.libraryManagement.query.predicate.BookPredicate;
 import com.example.libraryManagement.service.IBookService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
-public class BookServiceIml implements IBookService {
+public class BookServiceImpl implements IBookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
     private final FileStorageService fileStorageService;
@@ -57,6 +59,7 @@ public class BookServiceIml implements IBookService {
         });
         return bookMapper.toDto(newBook);
     }
+
 
     @Override
     public BookDto updateBook(Long bookId, UpsertBookForm upsertBookForm, MultipartFile file) {
@@ -93,15 +96,44 @@ public class BookServiceIml implements IBookService {
         return bookMapper.toFullInfoDto(book);
     }
 
-    @Override
-    public Page<BookDto> getBooksByLiquidationTicketId(GetLiquidationTicketParams getLiquidationTicketParams, Pageable pageable) {
-        return bookRepository
-                .findAll(BookPredicate.getBooksByLiquidationTicketId(getLiquidationTicketParams), pageable)
-                .map(bookMapper::toDto);
-    }
 
     @Override
     public void setBookState(Set<Book> books, BookStatus status){
+        books.forEach(book -> book.setStatus(status));
+        bookRepository.saveAll(books);
+    }
+
+    @Override
+    public void setBookIsBorrowedState(Set<Book> books, boolean isBorrowed){
+        books.forEach(book -> book.setBorrowed(isBorrowed));
+        bookRepository.saveAll(books);
+    }
+
+    @Override
+    public List<BookExcelDto> getBooksList(GetBookParams getBookParams) {
+        List<BookExcelDto> bookList = new ArrayList<BookExcelDto>();
+         Iterable<Book> books = bookRepository
+                .findAll(BookPredicate.getBooks(getBookParams));
+         books.forEach(book -> bookList.add(bookMapper.toExcelDto(book)));
+         return bookList;
+    }
+
+    Logger logger = LoggerFactory.getLogger(BookServiceImpl.class);
+    @Override
+    public void createMultipleBooks(List<UpsertExcelBookForm> list) {
+        List<Book> books = new ArrayList<Book>();
+        List<Book> finalBooks = books;
+        list.forEach(bookForm -> {
+            logger.atInfo().log(bookForm.toString());
+            Book book = bookMapper.toEntity(bookForm);
+            finalBooks.add(book);
+        });
+        books = bookRepository.saveAll(books);
+    }
+
+    @Override
+    public void changeListStatus(List<Long> bookList, BookStatus status) {
+        List<Book> books = bookRepository.findAllById(bookList);
         books.forEach(book -> book.setStatus(status));
         bookRepository.saveAll(books);
     }

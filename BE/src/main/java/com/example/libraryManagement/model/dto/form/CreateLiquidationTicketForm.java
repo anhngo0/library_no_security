@@ -6,15 +6,16 @@ import com.example.libraryManagement.model.entity.TicketStatus;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
 @Data
 public class CreateLiquidationTicketForm {
-    private Date created_date;
+    private LocalDateTime created_date;
     private String creator_note;
     private Long creatorId;
     private BigDecimal export_price;
-    private int number;
+    private Integer totalQuantity;
     Set<Long> bookIds;
 }

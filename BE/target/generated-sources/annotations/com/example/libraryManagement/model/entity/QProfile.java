@@ -23,7 +23,7 @@ public class QProfile extends EntityPathBase<Profile> {
 
     public final StringPath CCCD_ID = createString("CCCD_ID");
 
-    public final DateTimePath<java.util.Date> DoB = createDateTime("DoB", java.util.Date.class);
+    public final DateTimePath<java.time.LocalDateTime> DoB = createDateTime("DoB", java.time.LocalDateTime.class);
 
     public final StringPath email = createString("email");
 

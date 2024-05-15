@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.time.Year;
 import java.util.Date;
 import java.util.List;
@@ -16,9 +15,10 @@ import java.util.List;
 @NoArgsConstructor
 public class BookDto implements Serializable {
     private Long id;
-    private String vietnameseName;
+    private String titleName;
     private String alterName;
     private String author;
+    private boolean isBorrowed;
     private String bookPosition;
     private Double price;
     private int quantity;

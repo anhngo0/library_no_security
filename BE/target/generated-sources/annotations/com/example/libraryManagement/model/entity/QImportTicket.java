@@ -25,16 +25,16 @@ public class QImportTicket extends EntityPathBase<ImportTicket> {
     public final QTicket _super;
 
     //inherited
-    public final StringPath appover_note;
-
-    //inherited
-    public final DateTimePath<java.util.Date> approval_date;
+    public final DateTimePath<java.time.LocalDateTime> approval_date;
 
     // inherited
     public final QProfile approver;
 
     //inherited
-    public final DateTimePath<java.util.Date> created_date;
+    public final StringPath approver_note;
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> created_date;
 
     // inherited
     public final QProfile creator;
@@ -75,9 +75,9 @@ public class QImportTicket extends EntityPathBase<ImportTicket> {
     public QImportTicket(Class<? extends ImportTicket> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this._super = new QTicket(type, metadata, inits);
-        this.appover_note = _super.appover_note;
         this.approval_date = _super.approval_date;
         this.approver = _super.approver;
+        this.approver_note = _super.approver_note;
         this.created_date = _super.created_date;
         this.creator = _super.creator;
         this.creator_note = _super.creator_note;

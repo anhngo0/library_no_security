@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface ILiquidationService {
     LiquidationTicketDto createLiquidationTicket(CreateLiquidationTicketForm createLiquidationTicketForm, MultipartFile attachments);
 
@@ -21,4 +23,6 @@ public interface ILiquidationService {
     void deleteLiquidationTicket(Long id);
 
     void respondLiquidationTicketForm(Long id,RespondLiquidationTicketForm respondLiquidationTicketForm);
+
+    void deleteMultiple(List<Long> ids);
 }

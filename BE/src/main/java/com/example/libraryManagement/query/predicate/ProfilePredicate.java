@@ -8,6 +8,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class ProfilePredicate {
@@ -28,7 +29,7 @@ public class ProfilePredicate {
                         .and(profile.phone.containsIgnoreCase(keyword)) : null;
 
     }
-    private static BooleanExpression doBInBetween(Date from, Date to){
+    private static BooleanExpression doBInBetween(LocalDateTime from, LocalDateTime to){
         return CommonUtils.validateDateBetween(from,to) ?
                 profile.DoB.between(from,to):null;
     }

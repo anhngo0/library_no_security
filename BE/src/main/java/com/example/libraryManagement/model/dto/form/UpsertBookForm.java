@@ -9,10 +9,10 @@ import java.time.Year;
 
 @Data
 public class UpsertBookForm implements Serializable {
-    private String vietnameseName;
+    private String titleName;
     private String alterName;
     private String author;
-    private BigInteger ISBNNumber;
+    private String ISBNNumber;
     private String bookPosition;
     private Double price;
     private int quantity;
@@ -20,7 +20,6 @@ public class UpsertBookForm implements Serializable {
     private String publisher;
     private String language;
     private String description;
-    private BookStatus status;
     private Long categoryId;
     private Long classNumberId;
 }

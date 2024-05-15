@@ -6,14 +6,15 @@ import com.example.libraryManagement.model.entity.TicketStatus;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
 @Data
 public class BorrowTicketFullInfoDto  implements Serializable {
     private Long id;
-    private Date borrowed_date;
-    private Date returned_date;
+    private LocalDateTime borrowed_date;
+    private LocalDateTime returned_date;
     private ProfileMinInfoDto member;
     private ProfileMinInfoDto librarian;
     private String note;

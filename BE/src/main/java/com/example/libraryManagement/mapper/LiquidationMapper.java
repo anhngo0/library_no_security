@@ -23,7 +23,6 @@ public abstract class LiquidationMapper {
 
     @Mapping(source = "creator.name", target = "creator_name")
     @Mapping(source = "approver.name", target = "approver_name")
-    @Mapping( target = "status", source = "status")
     @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE,nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     public abstract LiquidationTicketDto toDto(LiquidationTicket liquidationTicket);
 

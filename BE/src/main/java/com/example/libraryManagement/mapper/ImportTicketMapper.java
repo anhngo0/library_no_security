@@ -34,7 +34,7 @@ public abstract class ImportTicketMapper {
     @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
     public abstract ImportTicket toEntity_update(CreateImportTicketForm createImportTicketForm, @MappingTarget ImportTicket importTicket);
 
-    @Mapping(source = "approverId", target = "creator")
+    @Mapping(source = "approverId", target = "approver")
     @Mapping(source = "isAccepted", target = "status", qualifiedByName = "setResponseStatus")
     @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE)
     public abstract ImportTicket toEntity_response(RespondImportTicketForm respondImportTicketForm, @MappingTarget ImportTicket importTicket);

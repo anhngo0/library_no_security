@@ -38,7 +38,9 @@ public class QBook extends EntityPathBase<Book> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final NumberPath<java.math.BigInteger> ISBNNumber = createNumber("ISBNNumber", java.math.BigInteger.class);
+    public final StringPath ISBNNumber = createString("ISBNNumber");
+
+    public final BooleanPath isBorrowed = createBoolean("isBorrowed");
 
     public final StringPath language = createString("language");
 
@@ -52,7 +54,7 @@ public class QBook extends EntityPathBase<Book> {
 
     public final EnumPath<BookStatus> status = createEnum("status", BookStatus.class);
 
-    public final StringPath vietnameseName = createString("vietnameseName");
+    public final StringPath titleName = createString("titleName");
 
     public final ComparablePath<java.time.Year> year_of_publication = createComparable("year_of_publication", java.time.Year.class);
 
@@ -76,7 +78,7 @@ public class QBook extends EntityPathBase<Book> {
         super(type, metadata, inits);
         this.category = inits.isInitialized("category") ? new QBookCategory(forProperty("category")) : null;
         this.classNumber = inits.isInitialized("classNumber") ? new QBookClassNumber(forProperty("classNumber")) : null;
-        this.liquidationTicket = inits.isInitialized("liquidationTicket") ? new QLiquidationTicket(forProperty("liquidationTicket"), inits.get("liquidationTicket")) : null;
+        this.liquidationTicket = inits.isInitialized("liquidationTicket") ? new QLiquidationTicket(forProperty("liquidationTicket")) : null;
     }
 
 }

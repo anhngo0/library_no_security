@@ -24,7 +24,7 @@ public class QBorrowTicket extends EntityPathBase<BorrowTicket> {
 
     public final SetPath<Book, QBook> books = this.<Book, QBook>createSet("books", Book.class, QBook.class, PathInits.DIRECT2);
 
-    public final DateTimePath<java.util.Date> borrowed_date = createDateTime("borrowed_date", java.util.Date.class);
+    public final DateTimePath<java.time.LocalDateTime> borrowed_date = createDateTime("borrowed_date", java.time.LocalDateTime.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -34,7 +34,7 @@ public class QBorrowTicket extends EntityPathBase<BorrowTicket> {
 
     public final StringPath note = createString("note");
 
-    public final DateTimePath<java.util.Date> returned_date = createDateTime("returned_date", java.util.Date.class);
+    public final DateTimePath<java.time.LocalDateTime> returned_date = createDateTime("returned_date", java.time.LocalDateTime.class);
 
     public final EnumPath<TicketStatus> status = createEnum("status", TicketStatus.class);
 

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 @Getter
@@ -14,10 +14,10 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     protected Long id;
-    protected Date created_date;
-    protected Date approval_date;
+    protected LocalDateTime created_date;
+    protected LocalDateTime approval_date;
     protected String creator_note;
-    protected String appover_note;
+    protected String approver_note;
 
     @Enumerated(EnumType.STRING)
     protected TicketStatus status;

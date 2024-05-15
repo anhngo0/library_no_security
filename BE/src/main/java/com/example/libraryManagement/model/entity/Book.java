@@ -31,12 +31,11 @@ import java.util.Set;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, name = "id")
     private Long id;
-    private String vietnameseName;
+    private String titleName;
     private String alterName;
+    private String ISBNNumber;
     private String author;
-    private BigInteger ISBNNumber;
     private String bookPosition;
     private Double price;
     private int quantity;
@@ -44,6 +43,8 @@ public class Book {
     private String publisher;
     private String language;
     private String description;
+    @Column(name = "is_Borrowed")
+    private boolean isBorrowed = false;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

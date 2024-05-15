@@ -22,9 +22,6 @@ public abstract class IdToEntityMapper {
     protected  BookClassNumberRepository bookClassNumberRepository;
 
     @Autowired
-    protected PermissionRepository permissionRepository;
-
-    @Autowired
     protected RoleRepository roleRepository;
 
     @Autowired

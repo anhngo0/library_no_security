@@ -5,12 +5,13 @@ import com.example.libraryManagement.model.dto.ProfileMinInfoDto;
 import com.example.libraryManagement.model.entity.TicketStatus;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
 @Data
 public class CreateBorrowTicketForm {
-    private Date borrowed_date;
+    private LocalDateTime borrowed_date;
     private Long memberId;
     private Long librarianId;
     private String note;

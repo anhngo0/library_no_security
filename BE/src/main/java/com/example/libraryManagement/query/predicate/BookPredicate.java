@@ -24,6 +24,9 @@ public class BookPredicate {
 
         BooleanBuilder where = new BooleanBuilder();
         return where
+                .and(statusIn(getBookParams.getStatus()))
+                .and(isBookBorrowed(getBookParams.isBorrowed()))
+                .and(matchLiquidationId(getBookParams.getLiquidationTicketId()))
                 .and(matchCategoryId(getBookParams.getCategoryId()))
                 .and(matchClassNumberId(getBookParams.getClassNumberId()))
                 .and(quantityInBetween(getBookParams.getQuantityFrom(),getBookParams.getQuantityTo()))
@@ -32,17 +35,12 @@ public class BookPredicate {
                 ;
     }
 
-    public static BooleanBuilder getBooksByLiquidationTicketId(GetLiquidationTicketParams getLiquidationTicketParams){
-        BooleanBuilder where = new BooleanBuilder();
-        return where
-                .and(matchLiquidationId(getLiquidationTicketParams.getId()))
-                .and(statusIn(BookStatus.INACTIVE,BookStatus.LIQUIDATED))
-                .and(commonAttributeContainKeyword(getLiquidationTicketParams.getKeyword()));
-
+    private static BooleanExpression isBookBorrowed(Boolean isBorrowed){
+        return ObjectUtils.isNotEmpty(isBorrowed) ? book.isBorrowed.eq(isBorrowed) :null;
     }
 
     private static BooleanExpression matchLiquidationId(Long id){
-        return ObjectUtils.isNotEmpty(id) ? book.liquidationTicket.id.eq(id):null;
+        return ObjectUtils.isNotEmpty(id) ? (book.liquidationTicket.id.eq(id).and(statusIn(BookStatus.LIQUIDATED,BookStatus.INACTIVE))):null;
     }
 
     private static BooleanExpression matchCategoryId(Long id){
@@ -66,7 +64,7 @@ public class BookPredicate {
 
     private static BooleanExpression commonAttributeContainKeyword(String keyword){
         return StringUtils.isNotBlank(keyword) ?
-                book.vietnameseName.containsIgnoreCase(keyword)
+                book.titleName.containsIgnoreCase(keyword)
                         .or(book.alterName.containsIgnoreCase(keyword))
                         .or(book.author.containsIgnoreCase(keyword))
                         .or(book.publisher.containsIgnoreCase(keyword))

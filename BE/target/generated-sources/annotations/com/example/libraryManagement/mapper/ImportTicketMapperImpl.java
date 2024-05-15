@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-08T10:54:05+0700",
+    date = "2024-05-14T01:32:48+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -77,6 +77,8 @@ public class ImportTicketMapperImpl extends ImportTicketMapper {
         importTicket.setCreator( idToEntityMapper.toProfile( createImportTicketForm.getCreatorId() ) );
         importTicket.setCreated_date( createImportTicketForm.getCreated_date() );
         importTicket.setCreator_note( createImportTicketForm.getCreator_note() );
+        importTicket.setTotalQuantity( createImportTicketForm.getTotalQuantity() );
+        importTicket.setTotalPrice( createImportTicketForm.getTotalPrice() );
         importTicket.setSupplier( createImportTicketForm.getSupplier() );
         importTicket.setImport_way( createImportTicketForm.getImport_way() );
 
@@ -94,6 +96,8 @@ public class ImportTicketMapperImpl extends ImportTicketMapper {
         importTicket.setCreator( idToEntityMapper.toProfile( createImportTicketForm.getCreatorId() ) );
         importTicket.setCreated_date( createImportTicketForm.getCreated_date() );
         importTicket.setCreator_note( createImportTicketForm.getCreator_note() );
+        importTicket.setTotalQuantity( createImportTicketForm.getTotalQuantity() );
+        importTicket.setTotalPrice( createImportTicketForm.getTotalPrice() );
         importTicket.setSupplier( createImportTicketForm.getSupplier() );
         importTicket.setImport_way( createImportTicketForm.getImport_way() );
 
@@ -106,9 +110,10 @@ public class ImportTicketMapperImpl extends ImportTicketMapper {
             return importTicket;
         }
 
-        importTicket.setCreator( idToEntityMapper.toProfile( respondImportTicketForm.getApproverId() ) );
+        importTicket.setApprover( idToEntityMapper.toProfile( respondImportTicketForm.getApproverId() ) );
         importTicket.setStatus( setResponseStatus( respondImportTicketForm.getIsAccepted() ) );
         importTicket.setApproval_date( respondImportTicketForm.getApproval_date() );
+        importTicket.setApprover_note( respondImportTicketForm.getApprover_note() );
 
         return importTicket;
     }

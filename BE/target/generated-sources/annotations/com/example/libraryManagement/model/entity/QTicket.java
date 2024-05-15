@@ -22,13 +22,13 @@ public class QTicket extends EntityPathBase<Ticket> {
 
     public static final QTicket ticket = new QTicket("ticket");
 
-    public final StringPath appover_note = createString("appover_note");
-
-    public final DateTimePath<java.util.Date> approval_date = createDateTime("approval_date", java.util.Date.class);
+    public final DateTimePath<java.time.LocalDateTime> approval_date = createDateTime("approval_date", java.time.LocalDateTime.class);
 
     public final QProfile approver;
 
-    public final DateTimePath<java.util.Date> created_date = createDateTime("created_date", java.util.Date.class);
+    public final StringPath approver_note = createString("approver_note");
+
+    public final DateTimePath<java.time.LocalDateTime> created_date = createDateTime("created_date", java.time.LocalDateTime.class);
 
     public final QProfile creator;
 

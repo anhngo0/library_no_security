@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -14,13 +15,14 @@ import java.util.List;
 @Data
 public class LiquidationTicketFullInfoDto implements Serializable {
     private Long id;
-    private Date created_date;
-    private Date approval_date;
+    private LocalDateTime created_date;
+    private LocalDateTime approval_date;
     private String creator_note;
+    private String approver_note;
     private TicketStatus status;
     private ProfileMinInfoDto creator;
     private ProfileMinInfoDto approver;
     private Double export_price;
-    private int number;
+    private int totalQuantity;
     List<FileStorageDto> attachments;
 }

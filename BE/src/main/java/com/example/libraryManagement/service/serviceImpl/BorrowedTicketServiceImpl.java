@@ -11,6 +11,7 @@ import com.example.libraryManagement.model.repository.BorrowedTicketRepository;
 import com.example.libraryManagement.query.params.GetBorrowTicketParams;
 import com.example.libraryManagement.query.predicate.BookPredicate;
 import com.example.libraryManagement.query.predicate.BorrowTicketPredicate;
+import com.example.libraryManagement.service.IBookService;
 import com.example.libraryManagement.service.IBorrowedTicketService;
 import com.querydsl.core.types.Predicate;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 public class BorrowedTicketServiceImpl implements IBorrowedTicketService {
     private final BorrowedTicketRepository borrowedTicketRepository;
     private final BorrowTicketMapper borrowTicketMapper;
+    private final IBookService bookService;
 
     @Override
     public Page<BorrowTicketDto> getBorrowedTickets(GetBorrowTicketParams getBorrowTicketParams, Pageable pageable) {
@@ -54,6 +56,7 @@ public class BorrowedTicketServiceImpl implements IBorrowedTicketService {
     public BorrowTicketDto respondBorrowedTicket(Long id, AcceptBorrowTicketForm acceptBorrowTicketForm) {
         BorrowTicket borrowTicket = borrowedTicketRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("resource not found"));
         borrowTicket = borrowTicketMapper.toEntity_accept(acceptBorrowTicketForm, borrowTicket);
+        bookService.setBookIsBorrowedState(borrowTicket.getBooks(), false);
         borrowTicket = borrowedTicketRepository.save(borrowTicket);
         return borrowTicketMapper.toDto(borrowTicket);
     }
@@ -61,6 +64,7 @@ public class BorrowedTicketServiceImpl implements IBorrowedTicketService {
     @Override
     public BorrowTicketDto createBorrowedTicket(CreateBorrowTicketForm createBorrowTicketForm) {
         BorrowTicket ticket = borrowTicketMapper.toEntity_create(createBorrowTicketForm);
+        bookService.setBookIsBorrowedState(ticket.getBooks(), true);
          ticket = borrowedTicketRepository.save(ticket);
          return borrowTicketMapper.toDto(ticket);
     }

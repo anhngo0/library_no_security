@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -20,8 +21,8 @@ public class BorrowTicket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date borrowed_date;
-    private Date returned_date;
+    private LocalDateTime borrowed_date;
+    private LocalDateTime returned_date;
     @Enumerated(EnumType.STRING)
     private TicketStatus status;
     private String note;

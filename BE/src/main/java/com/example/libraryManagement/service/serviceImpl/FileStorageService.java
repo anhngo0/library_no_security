@@ -27,23 +27,6 @@ public class FileStorageService implements IFileStorageService {
 
     private final FileStorageRepository fileStorageRepository;
 
-//    @Transactional
-//    @Override
-//    public FileStorageDto uploadFile(MultipartFile file) throws IOException {
-//        FileStorage fileInput = FileStorage.builder()
-//                .name(CommonUtils.getFileName(file))
-//                .extension(CommonUtils.getFileExtension(file))
-//                .associatedEntityId(1L)
-//                .contentType(file.getContentType())
-//                .associatedEntityType()
-//                .description(FileDescription.IMAGE)
-//                .data(file.getBytes())
-//                .build();
-//        fileInput = fileStorageRepository.saveAndFlush(fileInput);
-//        //handle create file here
-//        return fileStorageMapper.toDto(fileInput);
-//    }
-
     @Override
     public FileStorage getImgById(Long id) {
         FileStorage file = fileStorageRepository.findById(id)

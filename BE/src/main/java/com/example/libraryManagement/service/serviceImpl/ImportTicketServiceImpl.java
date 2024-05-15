@@ -12,14 +12,18 @@ import com.example.libraryManagement.model.repository.ImportTicketRepository;
 import com.example.libraryManagement.query.params.GetImportTicketParams;
 import com.example.libraryManagement.query.predicate.ImportTicketPredicate;
 import com.example.libraryManagement.service.IImportTicketService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -28,6 +32,8 @@ public class ImportTicketServiceImpl implements IImportTicketService {
     private final ImportTicketRepository importTicketRepository;
     private final ImportTicketMapper importTicketMapper;
     private final FileStorageService fileStorageService;
+    private final Logger logger = LoggerFactory.getLogger(ImportTicketServiceImpl.class);
+
     @Override
     public ImportTicketDto createImportTicket(CreateImportTicketForm createImportTicketForm, MultipartFile file) {
         ImportTicket importTicket = importTicketMapper.toEntity_create(createImportTicketForm);
@@ -87,5 +93,24 @@ public class ImportTicketServiceImpl implements IImportTicketService {
         importTicket = importTicketMapper.toEntity_response(respondImportTicketForm, importTicket);
         importTicket = importTicketRepository.save(importTicket);
         return importTicketMapper.toDto(importTicket);
+    }
+
+    @Override
+    @Transactional
+    public void deleteMultiple(List<Long> list) {
+        try {
+            importTicketRepository.deleteAllById(list);
+        } catch (RuntimeException e){
+            logger.atInfo().log(e.getMessage());
+        }
+    }
+
+    @Override
+    public void deleteImporTicket(Long id) {
+        try {
+            importTicketRepository.deleteById(id);
+        } catch (RuntimeException e){
+            logger.atInfo().log(e.getMessage());
+        }
     }
 }

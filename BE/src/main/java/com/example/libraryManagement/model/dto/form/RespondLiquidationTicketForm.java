@@ -4,11 +4,13 @@ import com.example.libraryManagement.model.dto.ProfileMinInfoDto;
 import com.example.libraryManagement.model.entity.TicketStatus;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 @Data
 public class RespondLiquidationTicketForm {
-    private Date approval_date;
+    private LocalDateTime approval_date;
     private Long approverId;
     private Boolean isAccepted;
+    private String approver_note;
 
 }

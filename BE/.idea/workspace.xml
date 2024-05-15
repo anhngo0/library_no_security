@@ -4,18 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a0d2f7d9-cc88-49d1-ae88-50d56b448304" name="Changes" comment="">
+    <list default="true" id="a0d2f7d9-cc88-49d1-ae88-50d56b448304" name="Changes" comment="complete implement classes in erd">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/constants/BookExcelConstatnts.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/constants/DateTimeFormatConstant.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/controller/BorrowedTicketController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/controller/ImportTicketController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/mapper/BorrowTicketMapper.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/mapper/ImportTicketMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/mapper/NameToEntityMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/BookExcelDto.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/BorrowTicketDto.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/ImportTicketDto.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/form/AcceptBorrowTicketForm.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/form/CreateBorrowTicketForm.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/form/CreateImportTicketForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/form/ImportBookForm.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/form/RespondImportTicketForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/form/UpsertExcelBookForm.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/fullInfo/BorrowTicketFullInfoDto.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/fullInfo/ImportTicketFullInfoDto.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/entity/BorrowTicket.java" afterDir="false" />
@@ -27,31 +31,51 @@
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/query/predicate/ImportTicketPredicate.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/IBorrowedTicketService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/IImportTicketService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/IReadExcelService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/IWriteEcxelService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/serviceImpl/BorrowedTicketServiceImpl.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/serviceImpl/ImportTicketServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/serviceImpl/ReadExcelServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/serviceImpl/WriteExcelServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/LibraryManagementApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/LibraryManagementApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/Utils/CommonUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/Utils/CommonUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/controller/BookController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/controller/LiquidationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/controller/LiquidationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/mapper/BookMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/mapper/BookMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/mapper/IdToEntityMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/mapper/IdToEntityMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/mapper/LiquidationMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/mapper/LiquidationMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/BookDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/BookDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/BorrowedTicketDto.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/LiquidationDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/LiquidationTicketDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/form/CreateLiquidationTicketForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/form/CreateLiquidationTicketForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/form/RespondLiquidationTicketForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/form/RespondLiquidationTicketForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/form/UpsertBookForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/form/UpsertBookForm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/fullInfo/BookFullInfoDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/fullInfo/BookFullInfoDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/fullInfo/LiquidationFullInfoDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/dto/fullInfo/LiquidationTicketFullInfoDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/entity/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/entity/Book.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/entity/BookStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/entity/BookStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/entity/BorrowedTicket.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/entity/LiquidationTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/entity/LiquidationTicket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/entity/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/entity/Profile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/entity/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/entity/Ticket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/repository/BookCategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/repository/BookCategoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/repository/BookClassNumberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/repository/BookClassNumberRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/repository/BorrowedTicketRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/model/repository/BorrowedTicketRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/query/params/GetBookParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/query/params/GetBookParams.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/query/params/GetLiquidationTicketParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/query/params/GetLiquidationTicketParams.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/query/params/GetProfileParams.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/query/params/GetProfileParams.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/query/predicate/BookPredicate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/query/predicate/BookPredicate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/query/predicate/LiquidationPredicate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/query/predicate/LiquidationPredicate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/query/predicate/ProfilePredicate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/query/predicate/ProfilePredicate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/IBookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/IBookService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/ILiquidationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/ILiquidationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/serviceImpl/BookServiceIml.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/serviceImpl/BookServiceIml.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/serviceImpl/BookServiceIml.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/serviceImpl/BookServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/serviceImpl/FileStorageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/serviceImpl/FileStorageService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/serviceImpl/LiquidationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/serviceImpl/LiquidationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/serviceImpl/PermissionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/libraryManagement/service/serviceImpl/PermissionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +85,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -77,18 +102,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.LibraryManagementApplication.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.LibraryManagementApplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.example.libraryManagement.model.entity" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.libraryManagement.excel" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -101,5 +129,14 @@
       <updated>1714723379832</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="complete implement classes in erd" />
+    <option name="LAST_COMMIT_MESSAGE" value="complete implement classes in erd" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/BE$LibraryManagementApplication.ic" NAME="LibraryManagementApplication Coverage Results" MODIFIED="1715700445076" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>com.example.libraryManagement.*</FILTER>
+    </SUITE>
   </component>
 </project>

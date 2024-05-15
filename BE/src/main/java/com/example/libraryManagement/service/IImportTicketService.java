@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface IImportTicketService {
     ImportTicketDto createImportTicket(CreateImportTicketForm createImportTicketForm, MultipartFile file);
 
@@ -20,4 +22,8 @@ public interface IImportTicketService {
     ImportTicketDto updateImportTicket(Long id, CreateImportTicketForm createImportTicketForm, MultipartFile file);
 
     ImportTicketDto respondImportTicket(Long id, RespondImportTicketForm respondImportTicketForm);
+
+    void deleteMultiple(List<Long> list);
+
+    void deleteImporTicket(Long id);
 }

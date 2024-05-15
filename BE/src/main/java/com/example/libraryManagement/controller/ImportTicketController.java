@@ -11,10 +11,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/import-ticket")
@@ -50,15 +53,24 @@ public class ImportTicketController {
     public ResponseEntity<ImportTicketDto> updateImportTicket(
             @PathVariable("id") Long id,
             @RequestPart("form") CreateImportTicketForm createImportTicketForm,
-            @RequestPart("file") MultipartFile file
+            @RequestPart(value = "file", required = false) MultipartFile file
     ){
         return ResponseEntity.ok(importTicketService.updateImportTicket(id, createImportTicketForm, file));
     }
-    @PutMapping("/respond/{id}")
+    @PutMapping(value = "/respond/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ImportTicketDto> respondImportTicket(@PathVariable("id") Long id, RespondImportTicketForm respondImportTicketForm){
         return ResponseEntity.ok(importTicketService.respondImportTicket(id, respondImportTicketForm));
     }
 
+    @DeleteMapping(path = "/multiple")
+    public ResponseEntity<Object> deleteMultipleImportTickets(@RequestBody List<Long> list) {
+        importTicketService.deleteMultiple(list);
+        return ResponseEntity.status(HttpStatus.OK).body("success");
+    }
 
-
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Object> deleteMultipleImportTickets(@PathVariable("id") Long id) {
+        importTicketService.deleteImporTicket(id);
+        return ResponseEntity.status(HttpStatus.OK).body("success");
+    }
 }

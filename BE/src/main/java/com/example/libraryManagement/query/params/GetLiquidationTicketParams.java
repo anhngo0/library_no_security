@@ -4,17 +4,19 @@ import com.example.libraryManagement.model.entity.TicketStatus;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 @Data
 public class GetLiquidationTicketParams {
-    private Long id;
+    private Long creatorId;
+    private Long approverId;
     private String keyword;
     private Double exportPrice_from;
     private Double exportPrice_to;
-    private Date create_from;
-    private Date create_to;
-    private Integer number_from;
-    private Integer number_to;
+    private LocalDateTime create_from;
+    private LocalDateTime create_to;
+    private Integer totalQuantity_from;
+    private Integer totalQuantity_to;
 }

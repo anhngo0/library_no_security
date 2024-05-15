@@ -14,10 +14,10 @@ import java.time.Year;
 @Data
 public class BookFullInfoDto implements Serializable {
     private Long id;
-    private String vietnameseName;
+    private String titleName;
     private String alterName;
     private String author;
-    private BigInteger ISBNNumber;
+    private String ISBNNumber;
     private String bookPosition;
     private Double price;
     private int quantity;
@@ -25,10 +25,10 @@ public class BookFullInfoDto implements Serializable {
     private String publisher;
     private String language;
     private String description;
+    private boolean isBorrowed;
     private BookStatus status;
     private BookCategoryDto category;
     private BookClassNumberDto classNumber;
 
     private LiquidationTicketDto liquidationTicket;
-    private ImportTicketDto importTicket;
 }

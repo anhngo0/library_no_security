@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class ImportTicketPredicate {
@@ -16,16 +17,22 @@ public class ImportTicketPredicate {
     public static BooleanBuilder getImportTickets(GetImportTicketParams getImportTicketParams){
         BooleanBuilder where = new BooleanBuilder();
         return where
-                .and(matchProfileId(getImportTicketParams.getLibrarianId(), getImportTicketParams.getManagerId()))
+                .and(matchLibrarianProfileId(getImportTicketParams.getLibrarianId()))
+                .and(matchManaggerProfileId(getImportTicketParams.getManagerId()))
                 .and(totalPriceInBetween(getImportTicketParams.getTotalPrice_from(), getImportTicketParams.getTotalPrice_to()))
                 .and(createDateInBetween(getImportTicketParams.getCreate_from(), getImportTicketParams.getCreate_to()))
                 .and(totalQuantityInBetween(getImportTicketParams.getTotalQuantity_from(), getImportTicketParams.getTotalQuantity_to()))
                 .and(commonAttributesContainKeyword(getImportTicketParams.getKeyword()));
     }
 
-    private static BooleanExpression matchProfileId(Long creatorId, Long approverId){
-        return (ObjectUtils.isNotEmpty(creatorId)||ObjectUtils.isNotEmpty(approverId))  ?
-                importTicket.creator.id.eq(creatorId).and(importTicket.approver.id.eq(approverId)):null;
+    private static BooleanExpression matchLibrarianProfileId(Long creatorId){
+        return ObjectUtils.isNotEmpty(creatorId)  ?
+                importTicket.creator.id.eq(creatorId):null;
+    }
+
+    private static BooleanExpression matchManaggerProfileId(Long approverId){
+        return ObjectUtils.isNotEmpty(approverId)  ?
+                (importTicket.approver.id.eq(approverId)):null;
     }
     private static BooleanExpression commonAttributesContainKeyword(String keyword){
         return StringUtils.isNotBlank(keyword) ?
@@ -35,7 +42,7 @@ public class ImportTicketPredicate {
                         .and(importTicket.approver.name.containsIgnoreCase(keyword)):null;
     }
 
-    private static BooleanExpression createDateInBetween(Date from, Date to){
+    private static BooleanExpression createDateInBetween(LocalDateTime from, LocalDateTime to){
         return CommonUtils.validateDateBetween(from,to)? importTicket.created_date.between(from,to):null;
     }
     private static BooleanExpression totalQuantityInBetween(Integer from, Integer to){

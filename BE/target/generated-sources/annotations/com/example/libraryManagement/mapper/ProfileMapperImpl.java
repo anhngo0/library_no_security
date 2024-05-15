@@ -4,12 +4,16 @@ import com.example.libraryManagement.model.dto.ProfileMinInfoDto;
 import com.example.libraryManagement.model.dto.form.UpsertProfileForm;
 import com.example.libraryManagement.model.dto.fullInfo.ProfileFullInfoDto;
 import com.example.libraryManagement.model.entity.Profile;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.util.Date;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-03T15:31:29+0700",
+    date = "2024-05-14T01:32:48+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -25,7 +29,9 @@ public class ProfileMapperImpl extends ProfileMapper {
 
         profileFullInfoDto.setId( profile.getId() );
         profileFullInfoDto.setName( profile.getName() );
-        profileFullInfoDto.setDoB( profile.getDoB() );
+        if ( profile.getDoB() != null ) {
+            profileFullInfoDto.setDoB( Date.from( profile.getDoB().toInstant( ZoneOffset.UTC ) ) );
+        }
         profileFullInfoDto.setCCCD_ID( profile.getCCCD_ID() );
         profileFullInfoDto.setAddress( profile.getAddress() );
         profileFullInfoDto.setPhone( profile.getPhone() );
@@ -59,8 +65,10 @@ public class ProfileMapperImpl extends ProfileMapper {
         Profile profile = new Profile();
 
         profile.setName( upsertProfileForm.getName() );
-        profile.setDoB( upsertProfileForm.getDoB() );
-        profile.setCCCD_ID(upsertProfileForm.getCCCD_ID() );
+        if ( upsertProfileForm.getDoB() != null ) {
+            profile.setDoB( LocalDateTime.ofInstant( upsertProfileForm.getDoB().toInstant(), ZoneId.of( "UTC" ) ) );
+        }
+        profile.setCCCD_ID( upsertProfileForm.getCCCD_ID() );
         profile.setAddress( upsertProfileForm.getAddress() );
         profile.setPhone( upsertProfileForm.getPhone() );
         profile.setEmail( upsertProfileForm.getEmail() );
@@ -78,7 +86,7 @@ public class ProfileMapperImpl extends ProfileMapper {
             profile.setName( upsertProfileForm.getName() );
         }
         if ( upsertProfileForm.getDoB() != null ) {
-            profile.setDoB( upsertProfileForm.getDoB() );
+            profile.setDoB( LocalDateTime.ofInstant( upsertProfileForm.getDoB().toInstant(), ZoneId.of( "UTC" ) ) );
         }
         if ( upsertProfileForm.getCCCD_ID() != null ) {
             profile.setCCCD_ID( upsertProfileForm.getCCCD_ID() );

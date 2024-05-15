@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -23,7 +24,7 @@ public class Profile {
     @Column(nullable = false)
     private String name;
 
-    private Date DoB;
+    private LocalDateTime DoB;
 
     @Column(nullable = false,length = 12)
     private String CCCD_ID;

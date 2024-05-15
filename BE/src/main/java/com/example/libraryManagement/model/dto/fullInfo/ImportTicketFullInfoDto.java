@@ -7,14 +7,15 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
 @Data
 public class ImportTicketFullInfoDto implements Serializable {
     private Long id;
-    private Date created_date;
-    private Date approval_date;
+    private LocalDateTime created_date;
+    private LocalDateTime approval_date;
     private String creator_note;
     private TicketStatus status;
     private ProfileMinInfoDto creator;
@@ -22,6 +23,5 @@ public class ImportTicketFullInfoDto implements Serializable {
     private Double totalPrice;
     private String import_way;
     private String supplier;
-    private int number;
     List<FileStorageDto> attachments;
 }
