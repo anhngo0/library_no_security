@@ -23,6 +23,7 @@ import java.time.Year;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import static com.example.libraryManagement.constants.BookExcelConstatnts.importExcelHeader;
 import static com.example.libraryManagement.constants.DateTimeFormatConstant.DATE_EXCEL_FORMATTER;
@@ -69,29 +70,35 @@ public class ReadExcelServiceImpl<T> implements IReadExcelService<T> {
                 switch (arg.getSimpleName()) {
                     case "LocalDateTime" -> {
                         LocalDateTime localDateTime = null;
-                        if (cellValue != null) {
+                        if (cellValue != null && !cellValue.equals("-")) {
                             localDateTime = LocalDate.parse(cellValue,
                                     DATE_EXCEL_FORMATTER).atStartOfDay();
                         }
                         method.invoke(instance, localDateTime);
                     }
                     case "Year" -> {
-                        method.invoke(instance, Year.parse(cellValue));
+                        if(cellValue != null && !cellValue.equals("-")){
+                            method.invoke(instance, Year.parse(cellValue));
+                        }
                     }
                     case "Integer", "int" -> {
-                        Integer integer = Integer.valueOf(cellValue);
-                        method.invoke(instance, integer);
+                        if(cellValue != null && !cellValue.equals("-")){
+                            Integer integer = Integer.valueOf(cellValue);
+                            method.invoke(instance, integer);
+                        }
                     }
                     case "Double","double" -> {
-                        if(cellValue != null){
+                        if(cellValue != null && !cellValue.equals("-")){
                             Double doubleValue = Double.valueOf(cellValue);
                             method.invoke(instance, doubleValue);
-                            logger.atInfo().log("price" + cellValue);
                         }
+                        logger.atInfo().log("price" + cellValue);
                     }
 
                     default -> {
-                        method.invoke(instance, cellValue);
+                        if(cellValue != null && !cellValue.equals("-")){
+                            method.invoke(instance, cellValue);
+                        }
                         logger.atInfo().log(cellValue);
                     }
                 }
