@@ -52,10 +52,4 @@ public class AccountServiceImpl implements IAccountService {
            accountRepository.deleteById(id);
     }
 
-    @Override
-    public void setUnenabledAccount(Long id) {
-        Account account = accountRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("resource not found"));
-        account.setIsEnabled(false);
-        accountRepository.save(account);
-    }
 }

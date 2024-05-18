@@ -18,5 +18,4 @@ public interface IAccountService {
 
     void deleteAccount(Long id);
 
-    void setUnenabledAccount(Long id);
 }

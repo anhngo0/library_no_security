@@ -21,9 +21,9 @@ public class QProfile extends EntityPathBase<Profile> {
 
     public final StringPath address = createString("address");
 
-    public final StringPath CCCD_ID = createString("CCCD_ID");
+    public final StringPath cccd_Id = createString("cccd_Id");
 
-    public final DateTimePath<java.time.LocalDateTime> DoB = createDateTime("DoB", java.time.LocalDateTime.class);
+    public final DatePath<java.time.LocalDate> DoB = createDate("DoB", java.time.LocalDate.class);
 
     public final StringPath email = createString("email");
 
@@ -32,6 +32,8 @@ public class QProfile extends EntityPathBase<Profile> {
     public final StringPath name = createString("name");
 
     public final StringPath phone = createString("phone");
+
+    public final EnumPath<UserRole> userRole = createEnum("userRole", UserRole.class);
 
     public QProfile(String variable) {
         super(Profile.class, forVariable(variable));

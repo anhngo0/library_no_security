@@ -78,7 +78,7 @@ public class QBook extends EntityPathBase<Book> {
         super(type, metadata, inits);
         this.category = inits.isInitialized("category") ? new QBookCategory(forProperty("category")) : null;
         this.classNumber = inits.isInitialized("classNumber") ? new QBookClassNumber(forProperty("classNumber")) : null;
-        this.liquidationTicket = inits.isInitialized("liquidationTicket") ? new QLiquidationTicket(forProperty("liquidationTicket")) : null;
+        this.liquidationTicket = inits.isInitialized("liquidationTicket") ? new QLiquidationTicket(forProperty("liquidationTicket"), inits.get("liquidationTicket")) : null;
     }
 
 }

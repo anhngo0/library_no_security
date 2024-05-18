@@ -11,11 +11,17 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface IProfileService {
-    ProfileFullInfoDto createProfile(UpsertProfileForm upsertProfileForm, MultipartFile file);
+    ProfileFullInfoDto createMemberProfile(UpsertProfileForm upsertProfileForm, MultipartFile file);
+
+    ProfileFullInfoDto createLibrarianProfile(UpsertProfileForm upsertProfileForm, MultipartFile file);
+
+    ProfileFullInfoDto createManagerProfile(UpsertProfileForm upsertProfileForm, MultipartFile file);
 
     ProfileFullInfoDto getFullInfoProfile(Long id);
 
-    Page<ProfileMinInfoDto> getMinInfoProfile(GetProfileParams getProfileParams, Pageable pageable);
+    Page<ProfileMinInfoDto> getMemberProfile(GetProfileParams getProfileParams, Pageable pageable);
+
+    Page<ProfileMinInfoDto> getLibrarianProfile(GetProfileParams getProfileParams, Pageable pageable);
 
     ProfileFullInfoDto updateProfile(UpsertProfileForm upsertProfileForm, Long id);
 

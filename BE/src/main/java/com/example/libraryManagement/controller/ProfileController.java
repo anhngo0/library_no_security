@@ -5,7 +5,10 @@ import com.example.libraryManagement.model.dto.ProfileMinInfoDto;
 import com.example.libraryManagement.model.dto.form.UpsertProfileForm;
 import com.example.libraryManagement.query.params.GetProfileParams;
 import com.example.libraryManagement.service.IProfileService;
+import com.example.libraryManagement.service.serviceImpl.ProfileService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
@@ -24,12 +27,31 @@ public class ProfileController {
     private final IProfileService profileService;
     private final PagedResourcesAssembler<ProfileMinInfoDto> profileMinInfoDtoPagedResourcesAssembler;
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ProfileFullInfoDto> createProfile(
+    private final Logger logger = LoggerFactory.getLogger(ProfileController.class);
+
+    @PostMapping(path = "/member", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ProfileFullInfoDto> createMemberProfile(
             @RequestPart("form")UpsertProfileForm upsertProfileForm,
             @RequestPart(value = "file", required = false)MultipartFile file
     ) {
-       return ResponseEntity.ok(profileService.createProfile(upsertProfileForm,file));
+       return ResponseEntity.ok(profileService.createMemberProfile(upsertProfileForm,file));
+    }
+
+    @PostMapping(path = "/librarian", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ProfileFullInfoDto> createLibrarianProfile(
+            @RequestPart("form")UpsertProfileForm upsertProfileForm,
+            @RequestPart(value = "file", required = false)MultipartFile file
+    ) {
+        return ResponseEntity.ok(profileService.createLibrarianProfile(upsertProfileForm,file));
+    }
+
+    @PostMapping(path = "/manager", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ProfileFullInfoDto> createManagerProfile(
+            @RequestPart("form")UpsertProfileForm upsertProfileForm,
+            @RequestPart(value = "file", required = false)MultipartFile file
+    ) {
+        logger.info(upsertProfileForm.toString());
+        return ResponseEntity.ok(profileService.createManagerProfile(upsertProfileForm,file));
     }
 
     @GetMapping("/fullInfo/{id}")
@@ -39,13 +61,24 @@ public class ProfileController {
         return ResponseEntity.ok(profileService.getFullInfoProfile(id));
     }
 
-    @GetMapping("/minInfo")
-    public ResponseEntity<PagedModel<EntityModel<ProfileMinInfoDto>>> getMinInfoProfile(
+    @GetMapping("/member")
+    public ResponseEntity<PagedModel<EntityModel<ProfileMinInfoDto>>> getMemberProfile(
             GetProfileParams getProfileParams,
             Pageable pageable
     ){
         PagedModel<EntityModel<ProfileMinInfoDto>> pagedModel = profileMinInfoDtoPagedResourcesAssembler.toModel(
-                profileService.getMinInfoProfile(getProfileParams, pageable)
+                profileService.getMemberProfile(getProfileParams, pageable)
+        );
+        return ResponseEntity.ok(pagedModel);
+    }
+
+    @GetMapping("/librarian")
+    public ResponseEntity<PagedModel<EntityModel<ProfileMinInfoDto>>> getLibrarianProfile(
+            GetProfileParams getProfileParams,
+            Pageable pageable
+    ){
+        PagedModel<EntityModel<ProfileMinInfoDto>> pagedModel = profileMinInfoDtoPagedResourcesAssembler.toModel(
+                profileService.getLibrarianProfile(getProfileParams, pageable)
         );
         return ResponseEntity.ok(pagedModel);
     }

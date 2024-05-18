@@ -12,27 +12,18 @@ import lombok.Setter;
 @Table(name = "account", uniqueConstraints = {
         @UniqueConstraint(columnNames = "password", name = "password")
 })
-@NamedEntityGraph(name = "account", attributeNodes = {
-        @NamedAttributeNode("profile"),
-        @NamedAttributeNode(value = "role", subgraph = "role_subgraph")
-}, subgraphs = @NamedSubgraph(name = "role_subgraph", attributeNodes = @NamedAttributeNode("permissions"))
-)
+//@NamedEntityGraph(name = "account", attributeNodes = {
+//        @NamedAttributeNode("profile"),
+//        @NamedAttributeNode(value = "role", subgraph = "role_subgraph")
+//}, subgraphs = @NamedSubgraph(name = "role_subgraph", attributeNodes = @NamedAttributeNode("permissions"))
+//)
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
-    private String password;
-    private Boolean isEnabled = false;
-
-    public Account(String username, String password, Profile profile, Role role) {
-        this.username = username;
-        this.password = password;
-        this.isEnabled = true;
-        this.profile = profile;
-        this.role = role;
-    }
+    private String password;;
 
     @OneToOne
     @JoinColumn(name = "profile_Id", referencedColumnName = "id")

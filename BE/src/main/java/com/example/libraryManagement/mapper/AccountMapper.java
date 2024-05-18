@@ -21,12 +21,10 @@ public abstract class AccountMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "profileId", target = "profile")
     @Mapping(source = "roleId", target = "role")
-    @Mapping(target = "isEnabled", ignore = true)
     public abstract Account toEntity(UpsertAccountForm upsertAccountForm);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "profileId", target = "profile")
     @Mapping(source = "roleId", target = "role")
-    @Mapping(target = "isEnabled", ignore = true)
     public abstract Account toEntity_update(UpsertAccountForm upsertAccountForm, @MappingTarget Account account);
 }

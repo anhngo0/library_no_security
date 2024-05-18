@@ -1,11 +1,13 @@
 package com.example.libraryManagement.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -14,7 +16,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = "CCCD_ID", name = "CCCD_ID")
+        @UniqueConstraint(columnNames = "cccd_Id", name = "cccd_Id")
 })
 public class Profile {
     @Id
@@ -24,10 +26,11 @@ public class Profile {
     @Column(nullable = false)
     private String name;
 
-    private LocalDateTime DoB;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate DoB;
 
     @Column(nullable = false,length = 12)
-    private String CCCD_ID;
+    private String cccd_Id;
 
     private String address;
 
@@ -36,4 +39,7 @@ public class Profile {
 
     @Column(nullable = false)
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 }

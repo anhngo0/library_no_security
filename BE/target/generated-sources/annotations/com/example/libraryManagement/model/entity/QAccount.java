@@ -24,8 +24,6 @@ public class QAccount extends EntityPathBase<Account> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final BooleanPath isEnabled = createBoolean("isEnabled");
-
     public final StringPath password = createString("password");
 
     public final QProfile profile;
