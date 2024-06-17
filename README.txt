@@ -5,3 +5,4 @@ chạy bằng docker:
           - ctrl + C dể dừng chạy
           - chạy lại : + dùng docker desktop 
                        + hoặc gó 'docker ps -a' -> tìm tên container | chạy lệnh "docker start <tên container>"
+Mở browser --> gõ http://localhost:8081/swagger-ui/index.html để đọc api docs
