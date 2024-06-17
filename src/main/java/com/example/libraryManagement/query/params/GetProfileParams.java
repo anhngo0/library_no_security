@@ -2,12 +2,11 @@ package com.example.libraryManagement.query.params;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 public class GetProfileParams {
     private String keyword;
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private LocalDate from;
+    private LocalDate to;
 }

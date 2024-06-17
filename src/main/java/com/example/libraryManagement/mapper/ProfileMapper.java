@@ -21,15 +21,15 @@ public abstract class ProfileMapper {
     public abstract ProfileMinInfoDto toMinInfoDto(Profile profile);
 
     @Mapping(source = "cccd_Id", target = "cccd_Id")
-    @Mapping(source = "doB", target = "doB", qualifiedByName = "dateFormat")
+//    @Mapping(source = "doB", target = "doB", qualifiedByName = "dateFormat")
     @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     public abstract Profile toEntity(UpsertProfileForm upsertProfileForm);
 
     @BeanMapping(unmappedTargetPolicy = ReportingPolicy.IGNORE, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     public abstract Profile toEntity_update(UpsertProfileForm upsertProfileForm, @MappingTarget Profile profile);
 
-    @Named("dateFormat")
-    protected LocalDateTime dateFormat(LocalDateTime date){
-        return LocalDate.parse(date.toString(),DateTimeFormatConstant.DATE_EXCEL_FORMATTER).atStartOfDay();
-    }
+//    @Named("dateFormat")
+//    protected LocalDate dateFormat(LocalDate date){
+//        return LocalDate.parse(date.toString(),DateTimeFormatConstant.DATE_EXCEL_FORMATTER).atStartOfDay();
+//    }
 }

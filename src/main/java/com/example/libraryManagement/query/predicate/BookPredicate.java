@@ -24,7 +24,6 @@ public class BookPredicate {
 
         BooleanBuilder where = new BooleanBuilder();
         return where
-                .and(statusIn(getBookParams.getStatus()))
                 .and(isBookBorrowed(getBookParams.isBorrowed()))
                 .and(matchLiquidationId(getBookParams.getLiquidationTicketId()))
                 .and(matchCategoryId(getBookParams.getCategoryId()))
@@ -44,15 +43,15 @@ public class BookPredicate {
     }
 
     private static BooleanExpression matchCategoryId(Long id){
-        return id != null ? book.category.id.eq(id) : null;
+        return ObjectUtils.isNotEmpty(id) ? book.category.id.eq(id) : null;
     }
 
     private static BooleanExpression matchClassNumberId(Long id){
-        return id != null ? book.classNumber.id.eq(id):null;
+        return ObjectUtils.isNotEmpty(id) ? book.classNumber.id.eq(id):null;
     }
 
     private static BooleanExpression statusIn(BookStatus... statuses) {
-        return ObjectUtils.isNotEmpty(statuses) ? book.status.in(statuses) : null;
+        return (ObjectUtils.isNotEmpty(statuses)  || statuses.length == 0) ? book.status.in(statuses) : null;
     }
 
     private static BooleanExpression yearOfPublicationInBetween(Year from, Year to) {

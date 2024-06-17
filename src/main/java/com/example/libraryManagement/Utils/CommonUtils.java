@@ -6,6 +6,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.Date;
@@ -20,6 +21,12 @@ public class CommonUtils {
     public static boolean validateYearBetween(Year from, Year to) {
         if (validateBetweenNotAnyNull(from, to))
             return false;
+        return !from.isAfter(to);
+    }
+    public static boolean validateDateBetween(LocalDate from, LocalDate to){
+        if(validateBetweenNotAnyNull(from, to)){
+            return false;
+        }
         return !from.isAfter(to);
     }
     public static  boolean validateDateBetween(LocalDateTime from, LocalDateTime to){

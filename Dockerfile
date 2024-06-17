@@ -10,8 +10,10 @@ COPY pom.xml ./pom.xml
 # Copy the rest of the application source code
 COPY src ./src
 
-# Package the application
-RUN mvn install -DskipTests
+# Add a volume to the /tmp directory
+VOLUME /tmp
+
+RUN mvn clean install -DskipTests
 
 # Stage 2: Create the final image
 FROM openjdk:17-alpine
@@ -26,7 +28,7 @@ COPY --from=build /app/target/*.jar app.jar
 COPY ./src/main/resources/application.yml ./application.yml
 
 # Expose the application port
-EXPOSE 8080
+EXPOSE 8081
 
 # Command to run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]

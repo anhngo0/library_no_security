@@ -28,7 +28,7 @@ public class AccountPredicate {
         return StringUtils.isNotBlank(keyword) ?
                 account.profile.name.containsIgnoreCase(keyword)
                         .or(account.profile.email.containsIgnoreCase(keyword))
-                        .or(account.profile.CCCD_ID.containsIgnoreCase(keyword))
+                        .or(account.profile.cccd_Id.containsIgnoreCase(keyword))
                 :null;
     }
     private static BooleanExpression matchedProfileId(Long id){

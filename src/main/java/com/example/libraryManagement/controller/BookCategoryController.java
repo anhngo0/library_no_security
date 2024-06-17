@@ -1,6 +1,5 @@
 package com.example.libraryManagement.controller;
 
-import com.example.libraryManagement.mapper.BookCategoryMapper;
 import com.example.libraryManagement.model.dto.BookCategoryDto;
 import com.example.libraryManagement.model.dto.form.UpsertBookCategoryForm;
 import com.example.libraryManagement.query.params.GetBookCategoriesQueryParams;

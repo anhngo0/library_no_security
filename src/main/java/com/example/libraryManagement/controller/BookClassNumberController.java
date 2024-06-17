@@ -1,13 +1,8 @@
 package com.example.libraryManagement.controller;
 
-import com.example.libraryManagement.model.dto.BookCategoryDto;
 import com.example.libraryManagement.model.dto.BookClassNumberDto;
-import com.example.libraryManagement.model.dto.form.UpsertBookCategoryForm;
 import com.example.libraryManagement.model.dto.form.UpsertBookClassNumberForm;
-import com.example.libraryManagement.model.dto.form.UpsertBookForm;
-import com.example.libraryManagement.model.entity.BookClassNumber;
 import com.example.libraryManagement.query.params.GetBookClassNumberQueryParams;
-import com.example.libraryManagement.service.IBookCategoryService;
 import com.example.libraryManagement.service.IBookClassNumberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
